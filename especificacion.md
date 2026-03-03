@@ -58,8 +58,8 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | F₂ | Epistemic policies | L₁ | Obligatoria |
 | F₃ | Global constraints | L₁ | Obligatoria |
 | F₄ | Domain profile | L₂ | Obligatoria |
-| F₅ | Objective | L₂ | Obligatoria |
-| F₆ | Knowledge policies | L₂ | Obligatoria |
+| F₅ | Project objective | L₂ | Obligatoria |
+| F₆ | Source policies | L₂ | Obligatoria |
 | F₇ | Project constraints | L₂ | Opcional |
 | F₈ | Lexical-semantic rules | L₃ | Obligatoria |
 | F₉ | Morphosyntactic rules | L₃ | Obligatoria |
@@ -69,9 +69,9 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | FS₁ | Trigger | L₄ | Obligatoria por skill |
 | FS₂ | Procedure | L₄ | Obligatoria por skill |
 | FS₃ | Resources | L₄ | Opcional por skill |
-| FS₄ | Examples | L₄ | Opcional por skill |
+| FS₄ | Skill Examples | L₄ | Opcional por skill |
 | F₁₃ | Task specification | L₅ | Obligatoria |
-| F₁₄ | Scope | L₅ | Obligatoria |
+| F₁₄ | Task scope | L₅ | Obligatoria |
 | F₁₅ | Task constraints | L₅ | Opcional |
 | F₁₆ | Task examples | L₅ | Opcional |
 
@@ -136,7 +136,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 
 Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo o la tarea.
 
-**F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario y sobre la postura del modelo.
+**F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario (preferencias contextuales) y sobre la postura del modelo (preferencias conductuales).
 
 **F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre y los errores del usuario.
 
@@ -148,9 +148,9 @@ Instrucciones que aplican a todas las conversaciones dentro de un proyecto.
 
 **F₄ — Domain profile.** Identidad disciplinar del proyecto.
 
-**F₅ — Objective.** Resultado que el proyecto debe producir.
+**F₅ — Project Objective.** Resultado que el proyecto debe producir.
 
-**F₆ — Knowledge policies.** Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto.
+**F₆ — Source policies.** Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto.
 
 **F₇ — Project constraints** *(opcional)***.** Restricciones persistentes dentro del proyecto que complementan F₃.
 
@@ -172,7 +172,7 @@ Reglas que regulan la forma lingüística del output. Cada estilo es una unidad 
 
 ### L₄ Skills
 
-Instrucciones procedurales, reutilizables entre proyectos y contingentes a un tipo de tarea. Se activan por coincidencia semántica.
+Instrucciones procedurales, reutilizables entre proyectos y contingentes a un tipo de tarea que se activan por coincidencia semántica: 
 
 ```
 skill-name/
@@ -188,7 +188,7 @@ skill-name/
 
 **FS₃ — Resources** *(opcional)***.** Archivos adicionales en el directorio de la skill.
 
-**FS₄ — Examples** *(opcional)***.** Pares input-output que demuestran el resultado esperado de la skill.
+**FS₄ — Skill examples** *(opcional)***.** Pares input-output que demuestran el resultado esperado de la skill.
 
 
 ### L₅ Prompt
@@ -197,7 +197,7 @@ Instrucciones efímeras que aplican a un único mensaje.
 
 **F₁₃ — Task specification.** Operación concreta que el modelo ejecuta en respuesta al mensaje.
 
-**F₁₄ — Scope.** Alcance temático de la tarea.
+**F₁₄ — Task scope.** Alcance temático de la tarea.
 
 **F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual.
 
