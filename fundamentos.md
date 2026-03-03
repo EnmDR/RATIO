@@ -1,5 +1,4 @@
-# RATIO — Fundamentos
-
+# RATIO (RATIOnal Architecture for Tailored Interaction and Output)
 ## §1 Origen
 
 Empecé a usar la IA cuando todavía estaba en pañales. Estaba en cuarto de la ESO o primero de Bachillerato (no recuerdo exactamente), y ChatGPT acababa de aparecer con una interfaz primitiva que hoy resulta casi irreconocible. Recuerdo también cuando salió DALL-E para generación de imágenes. En aquel momento la IA era algo de nicho: la conocía gente que estaba metida en el mundo de la programación, y yo estaba ahí porque cursaba Informática como optativa en segundo de Bachillerato. Estaba aprendiendo Python, Markdown y, sobre todo, LaTeX, que me enseñó mucho sobre personalización y maquetación de documentos. Ese conocimiento terminó siendo más influyente de lo que imaginé en aquel momento.
