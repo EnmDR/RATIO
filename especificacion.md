@@ -2,11 +2,11 @@
 
 ## Especificación 
 
-## §1 Alcance
+## Alcance
 
 RATIO estructura la información configurable por el usuario de Claude en claude.ai. Organiza esa información en cinco capas correspondientes a los cinco canales de la plataforma (user preferences, project instructions, style, skills, prompt), cada una con un catálogo de facetas que determina qué instrucciones admite.
 
-## §2 Definiciones
+## Definiciones
 
 **Capa.** Canal de la plataforma al que se asignan instrucciones. Cada capa tiene una persistencia (en qué conversaciones son efectivas las instrucciones) y un modo de activación (bajo qué condición entran en el contexto de inferencia).
 
@@ -18,9 +18,9 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 - Política: "Cuando X, haz Y" o "Haz X de manera Y".
 - Restricción: forma preferida "Haz Y en lugar de X". Forma negativa ("No hagas X") reservada para exclusiones que no admiten reformulación positiva.
 
-## §3 Arquitectura de capas
+## Arquitectura de capas
 
-### 3.1 Tabla de capas
+### Tabla de capas
 
 | Capa | Interfaz | Persistencia | Activación |
 |------|----------|-------------|------------|
@@ -30,7 +30,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | L₄ · Skills | Personalización → Skills | Todas las conversaciones | Condicional (coincidencia semántica) |
 | L₅ · Prompt | Mensaje del usuario | Mensaje individual | Una inferencia |
 
-### 3.2 Asignación de capas
+### Asignación de capas
 
 ```
 ¿Cambia entre mensajes?
@@ -48,9 +48,9 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 ```
 
 
-## §4 Arquitectura de facetas
+## Arquitectura de facetas
 
-### 4.1 Tabla de facetas
+### Tabla de facetas
 
 | ID | Nombre | Capa | Obligatoriedad |
 |----|--------|------|----------------|
@@ -75,7 +75,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | F₁₅ | Task constraints | L₅ | Opcional |
 | F₁₆ | Task examples | L₅ | Opcional |
 
-### 4.2 Asignación de facetas
+### Asignación de facetas
 
 **L₁ · User preferences**
 
