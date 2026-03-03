@@ -1,157 +1,25 @@
-# RATIO (RATIOnal Architecture for Tailored Interaction and Output)
-## Fundamentos 
-## §1 Origen
+# Fundamentos
 
-Empecé a usar la IA cuando todavía estaba en pañales. Estaba en cuarto de la ESO o primero de Bachillerato (no recuerdo exactamente), y ChatGPT acababa de aparecer con una interfaz primitiva que hoy resulta casi irreconocible. Recuerdo también cuando salió DALL-E para generación de imágenes. En aquel momento la IA era algo de nicho: la conocía gente que estaba metida en el mundo de la programación, y yo estaba ahí porque cursaba Informática como optativa en segundo de Bachillerato. Estaba aprendiendo Python, Markdown y, sobre todo, LaTeX, que me enseñó mucho sobre personalización y maquetación de documentos. Ese conocimiento terminó siendo más influyente de lo que imaginé en aquel momento.
+Este documento aborda os conceitos fundamentais de nosso projeto. A seguir, apresentamos os principais tópicos abordados:
 
-Desde el principio usé la IA para lo mismo que me sigue interesando hoy: adquirir conocimiento. Le pedía que me explicara cosas, que me ayudara a buscar información, a contrastar fuentes, a detectar lagunas en lo que yo sabía, a corregirme. Casi todo lo que hacía con ella estaba relacionado con el ámbito académico, porque era donde más utilidad le encontraba. No tenía ningún sistema, ningún protocolo, ninguna metodología. Simplemente le preguntaba cosas y leía lo que me respondía.
+1. **Objetivo do Projeto**  
+   O objetivo é criar uma solução eficiente que atenda às necessidades dos usuários.
 
-Durante todo ese tiempo no necesité más que eso. Estudiaba con un libro, unas diapositivas de la profesora, hacía esquemas, unos apuntes un poco primitivos copiando de aquí y de allá, y la IA era un complemento para entender mejor lo que leía. No había necesidad real de sistematizar nada.
+2. **Tecnologias Utilizadas**  
+   O projeto é desenvolvido com as seguintes tecnologias:  
+   - **Linguagem:** Python  
+   - **Framework:** Django  
 
-Todo cambió cuando llegué al primer curso del Grado en Medicina. Llevo aquí seis o siete meses y desde el primer momento me di cuenta de que la universidad está organizada formalmente de una manera que el instituto no lo estaba. Hay grados, departamentos, asignaturas, bloques, temas, criterios de evaluación, bibliografía específica, decenas de libros de referencia, múltiples formas de estudiar. La cantidad de conocimiento es brutal.
+3. **Arquitetura do Sistema**  
+   O sistema segue uma arquitetura em camadas, dividindo as responsabilidades em módulos:
+   - Camada de apresentação  
+   - Camada de lógica de negócios  
+   - Camada de acesso a dados  
 
-Ante esa vastedad, tenía que tomar decisiones. No sabía cómo iba a estudiar, no sabía qué método usar, no sabía cómo organizar la información. Era como montar una empresa y tener que crear protocolos para todo al mismo tiempo. Necesitaba un método de estudio, un método de elaboración de apuntes, una guía de estilo para mis documentos, una forma de trabajar. Todo.
+4. **Metodologia**  
+   A metodologia ágil é utilizada para garantir entregas rápidas e adaptativas, facilitando a comunicação entre a equipe.
 
-Lo primero que sistematicé fue la guía de estilo. Definí los márgenes, el interlineado, la tipografía, los tamaños de título, el sistema cromático, los encabezados, los pies de página, todo lo que a nivel puramente de maquetación define cómo se ve un documento. Esto lo heredé directamente de LaTeX. La diferencia es que en Medicina no podía permitirme elaborar documentos en LaTeX: necesitaba algo más práctico y rápido, sin tener que preocuparme por código para cada documento. LaTeX es un conocimiento que tengo ahí para el día que necesite una formalización rigurosa (un report, un artículo), pero para el volumen de trabajo diario, Word era la opción correcta. Además, la universidad me lo proporcionaba gratis.
+5. **Encaminhamentos**  
+   As próximas etapas incluem a implementação de novas funcionalidades e melhorias contínuas com base no feedback dos usuários.  
 
-Después de definir la maquetación apareció un problema más profundo que me ocupó mucho tiempo. Una cosa es definir cómo se ve un título (tamaño 16, color tal, espaciado tal) y otra muy distinta es saber cuándo poner un título y cuándo un subtítulo, cuándo escribir en prosa y cuándo usar una tabla, cuándo un diagrama y cuándo una lista, cuándo una sección merece encabezado propio y cuándo se integra en el flujo del texto. Hay una fricción real entre el conocimiento en sí mismo y la forma de presentarlo: la jerarquización, la taxonomía, la disposición. Para un mismo contenido existe un plano casi infinito de formas de formularlo, y moverse por ese plano no garantiza llegar a una formulación objetivamente mejor, porque las diferencias funcionales entre muchas de esas formulaciones son mínimas.
-
-La resolución (parcial, porque sigo reflexionando sobre esto) vino de un lugar inesperado: la teoría de conjuntos. Al estudiar cómo se fundamentan las matemáticas, me di cuenta de que toda teoría formal parte de axiomas que uno acepta sin definirlos en función de nada más básico. La recursión de definiciones tiene un suelo. A partir de esos axiomas se establecen propiedades, y esas propiedades generan conocimiento. En ciencia empírica pasa algo análogo: una célula es una especie de axioma empírico, algo que aceptamos que existe porque lo validamos empíricamente, y a partir de ahí escribimos propiedades sobre ella. La cuestión no está en la definición última sino en lo que construyes encima.
-
-Esto no resolvió del todo el problema de la presentación, pero me liberó de la parálisis de buscar la forma "correcta" de presentar cada concepto. Y terminó influyendo directamente en cómo diseñé RATIO, porque la misma lógica aplica al framework: no tiene sentido buscar una formalización ontológicamente perfecta si lo que importa es que funcione.
-
-Con el tiempo fui convergiendo hacia un método en dos fases, que todavía no considero definitivo pero que funciona.
-
-La primera fase es exploratoria. Cuando me enfrento a un tema nuevo, lo primero que hago es un diálogo socrático libre con la IA. Sin estructura, sin plantillas. Le pregunto qué es esto, por qué pasa aquello, cuál es el significado de este mecanismo, cómo se relaciona con este otro. Leo las diapositivas, miro diagramas, hago dibujos, veo vídeos. La idea es dejar que mi mente vaya detectando patrones, coherencias, clasificaciones, sin formalizar nada todavía. Asisto a clase, me como el coco, pregunto. Es una fase de comprensión pura.
-
-La segunda fase es de afianzamiento. Todo lo que entendí de manera dispersa necesita formalizarse en un documento sintetizado que contenga lo preciso e indispensable. Los razonamientos auxiliares quedan fuera: si en algún momento necesito revisarlos, puedo reconstruir el camino porque, después de haber razonado por distintas vías, las cosas estrictamente necesarias bastan para deducir el resto.
-
-RATIO surgió en la segunda fase. Pero antes de llegar a él hubo un recorrido que explico en §6.
-
-Hubo un punto de inflexión importante que conviene contar aquí porque afecta a cómo entiendo el propósito de RATIO. Después de un tiempo usando la IA para elaborar apuntes con una versión casi congelada del sistema, entré en un ciclo de meta-perfeccionamiento. Prestaba más atención a cómo se producían los apuntes, a su estructura, a cómo se veían, que al contenido mismo. Era como si los fuera a publicar, no a estudiar. Había desplazado el objetivo (aprender Medicina) al método (perfeccionar el output).
-
-Me encontré a dos semanas del mes de exámenes, estudiando una sola asignatura, bastante atrasado. Y seguía retocando apuntes. Ahí hice una reflexión que, creo, es bastante válida: la IA no puede hacer mi trabajo de aprender. La fase exploratoria (el diálogo, las preguntas, la comprensión activa) es insustituible. Pero tampoco puedo pretender elaborar yo manualmente todos los apuntes de todas las asignaturas, porque con mi tendencia al perfeccionismo entro en ciclos de iteración que degradan mi rendimiento y consumen un tiempo que no tengo.
-
-La conclusión fue esta: la IA produce unos apuntes que cumplen con todos los requisitos de calidad que he definido. Yo los tomo como un producto terminado, como si los hubiera escrito otra persona. No entro en ciclos de edición. Esos apuntes son el registro de lo que ya estudié de manera activa en la primera fase, y me sirven para revisión posterior. Y mi energía la dedico a la parte que solo yo puedo hacer: entender, razonar, conectar. Esto es lo que RATIO, en su aplicación concreta a la elaboración de apuntes, me permite hacer de manera sostenible.
-
-
-## §2 Qué es RATIO
-
-RATIO es una guía para el usuario que establece criterios para organizar la información configurable en los canales de personalización que expone una interfaz de LLM. Su objetivo es la delimitación de contexto: permitir al usuario acotar, con la granularidad que necesite, el contexto que recibe el modelo.
-
-El nombre viene del latín. Cuando empecé a buscar un nombre, vi que la mayoría de frameworks usaban acrónimos de sus componentes (CO-STAR, TIDD-EC y similares). Intenté crear uno, pero no había manera de que las capas y facetas del sistema formaran un acrónimo que sonara bien sin forzar la terminología y perder precisión. Así que opté por un nombre con significado propio en lugar de un acrónimo funcional.
-
-La palabra clave en la definición es *guía*. RATIO no es un software, no es un plugin, no es un archivo que se cargue en la IA. Es un conjunto de principios y estructuras que yo, como usuario, aplico para decidir qué información poner, dónde ponerla y por qué. El resultado de aplicar RATIO es un contexto bien distribuido en los canales de la interfaz. Lo que la IA recibe es ese resultado, no RATIO en sí.
-
-RATIO no es una técnica de prompting. Las técnicas de prompting operan dentro de un mensaje: cómo formular una instrucción, cómo pedir razonamiento paso a paso, cómo dar ejemplos. RATIO opera en un nivel distinto. Estructura la totalidad del contexto que el modelo recibe, del cual el prompt es solo una de las vías. De hecho, RATIO podría contener técnicas de prompting dentro de sus propias estructuras: son herramientas que se usan *dentro* del framework, no competidoras del framework.
-
-RATIO tampoco es un input que la IA recibe. La IA no sabe que RATIO existe. No hay ningún momento en el que el modelo lea "estoy operando bajo RATIO" ni nada parecido. Esto tiene consecuencias directas para la formalización: no tiene sentido optimizar la estructura de RATIO para que sea "legible por la máquina", porque la máquina nunca la lee como tal.
-
-RATIO tampoco es un sistema formal que el modelo interprete como estructura lógica. Los LLMs procesan secuencias de tokens y generan outputs probabilísticamente. No interpretan taxonomías, no respetan jerarquías ontológicas, no distinguen entre una instrucción bien clasificada y una mal clasificada si el contenido informativo es el mismo. Esto no significa que la estructura sea irrelevante (lo es para el usuario), pero sí que el criterio de calidad de RATIO no es la elegancia formal sino la calidad del output que produce.
-
-Detrás de RATIO hay un principio que Anthropic formalizó en septiembre de 2025 en un artículo de su blog de ingeniería: la ingeniería de contexto. La idea es que, después de años en los que la ingeniería de prompts fue el foco de atención en la IA aplicada, el problema real es más amplio. No se trata solo de encontrar las palabras adecuadas para un prompt, sino de responder a una pregunta más general: ¿qué configuración de contexto tiene más probabilidad de generar el comportamiento deseado del modelo?
-
-El contexto, según Anthropic, es el conjunto de tokens que se incluyen al hacer una inferencia con un LLM. La ingeniería de contexto es la optimización de la utilidad de esos tokens frente a las restricciones inherentes de los modelos. La ventana de contexto es un recurso finito donde toda información compite por atención. Organizar esa información de manera que lo relevante tenga la prioridad adecuada y lo redundante se elimine es el problema central.
-
-Cuando yo empecé a trabajar en lo que luego sería RATIO no conocía este término. De hecho, ni siquiera sabía que lo que estaba haciendo tenía nombre. Llegué a la misma conclusión por una vía empírica: viendo que el prompt no bastaba para administrar toda la configuración que necesitaba, y que la interfaz ofrecía canales adicionales que podían distribuir esa carga. Cuando leí el artículo de Anthropic, lo que sentí fue confirmación: el problema que yo estaba intentando resolver tenía nombre y otros lo habían identificado desde el lado de la ingeniería.
-
-## §3 Modularidad   
-
-RATIO define cinco capas que corresponden a los cinco canales de personalización de Claude: user preferences (L₁), project instructions (L₂), style (L₃), skills (L₄) y prompt (L₅). Pero definir cinco capas no significa que todas deban estar activas al mismo tiempo. Esta es una de las propiedades más importantes del framework y una de las que más tardé en entender.
-
-Puedo abrir un chat libre, fuera de cualquier proyecto, y seguir teniendo activas las user preferences y el estilo. Puedo entrar en un proyecto sin skill activa. Puedo combinar user preferences con un proyecto pero sin estilo personalizado. Cada combinación posible genera un contexto distinto, con un grado distinto de especificidad. RATIO no prescribe qué combinación usar: ofrece la estructura para que cualquiera de ellas sea el resultado de una decisión deliberada y no de un accidente.
-
-Se puede pensar en las capas como un gradiente. En el extremo más general, solo L₁ está activa: el modelo sabe quién soy, cómo me gusta que se comporte, qué estándares epistémicos aplico, pero no tiene ninguna acotación temática ni procedimental. En el extremo más específico, las cinco capas están activas: el modelo sabe quién soy, en qué dominio trabajo, cómo se expresa, qué procedimiento concreto ejecutar y qué tarea específica resolver en este mensaje.
-
-El usuario puede posicionarse en cualquier punto de ese gradiente según lo que necesite. Si estoy en una conversación casual explorando una idea filosófica, me basta con L₁ y quizá L₃. Si estoy elaborando apuntes de Bioquímica a partir de diapositivas del profesor, necesito las cinco capas activas. La modularidad permite esto sin que haya que reconfigurar nada cada vez: las capas superiores están siempre ahí, y las inferiores se activan o se desactivan según el contexto.
-
-Las capas L₁ a L₃ configuran el entorno: quién es el usuario, en qué dominio trabaja, cómo se expresa el modelo. Pero lo que define la tarea concreta es la skill (L₄) o, en su ausencia, el prompt (L₅). Esto significa que el mismo proyecto, con la misma configuración de L₁ a L₃, puede servir para elaborar apuntes, investigar, contrastar fuentes, generar esquemas o cualquier otra tarea, simplemente cambiando la skill activa o el prompt.
-
-Un ejemplo concreto: tengo una práctica de laboratorio de Bioquímica y necesito entender un protocolo. Eso no tiene nada que ver con redactar apuntes a partir de diapositivas: el procedimiento, el objetivo, el tipo de output son completamente distintos. Pero RATIO me permite abordarlo sin reconfigurar nada estructural. Las user preferences siguen activas (son generales). Me meto en el proyecto de Bioquímica y Biología Molecular, porque el dominio es el mismo. Puedo activar el estilo biomédico si quiero. Y simplemente le pregunto lo que necesito en el prompt, sin activar ninguna skill concreta. Estoy usando tres capas para algo que no fue el caso de uso original del framework, y el resultado es más preciso que si usara un chat sin ningún contexto.
-
-Esta separación es lo que hace que RATIO no sea un framework exclusivo para la redacción de apuntes biomédicos, aunque ese fuera su origen. La elaboración de apuntes es una skill; la comprensión de un protocolo de laboratorio puede ser una sesión ad hoc dentro del mismo proyecto. El framework proporciona el entorno y el usuario elige la tarea.
-
-## §4 Por qué Claude
-
-Hasta hace un par de meses usé ChatGPT exclusivamente. No quería caer en la heterogeneidad de usar múltiples herramientas (ChatGPT para una cosa, Gemini para otra, Copilot para otra) porque eso diluye la consistencia exactamente de la misma manera que el trabajo ad hoc. En un mundo con miles de opciones prácticamente equivalentes, lo importante es comprometerse con una y explotarla al máximo. Así que me comprometí con ChatGPT y fue la que usé durante todo Bachillerato y el inicio de la carrera.
-
-El cambio vino cuando me di cuenta de que la política de uso de ChatGPT y la de Claude producen resultados distintos en la práctica. ChatGPT permite chatear de manera prácticamente ilimitada, con modelo mejor o peor según la carga, pero sin restricciones duras de uso. Claude tiene una política de acceso más estricta: hay límites semanales y por ventanas de tiempo, y excederlos implica pagar. Esto suena como una desventaja, pero en la práctica observé que Claude, precisamente por esa restricción, produce outputs de calidad más estable. La hipótesis que manejo (sin poder verificarla técnicamente) es que la política de acceso ilimitado de ChatGPT puede llevar a que el modelo diluya su comportamiento para dar servicio a todos los usuarios simultáneamente, mientras que Claude mantiene un nivel de rendimiento más constante. Lo que yo necesitaba era exactamente eso: estabilidad, verificabilidad, que el modelo trabajara igual siempre.
-
-Pero la razón de peso para elegir Claude no fue solo la calidad del modelo sino la arquitectura de la interfaz. Claude expone cinco canales distintos para proporcionar contexto personalizado: user preferences (instrucciones globales que aplican a todas las conversaciones), project instructions (instrucciones específicas de un proyecto o dominio), style (configuración lingüístico-estilística), skills (procedimientos de activación condicional que se cargan cuando son relevantes) y prompt (el mensaje directo del usuario en cada turno).
-
-Cada canal tiene un alcance y una persistencia distintos. Las user preferences son las más globales y persistentes. El prompt es lo más local y efímero. Entre medias, los otros tres canales permiten una gradación de especificidad que, combinada, genera un espacio de configuración amplio. Cuantas más vías de contexto tenga la interfaz, más fina puede ser la distribución de la información configurable, y más preciso el output resultante.
-
-Todas las interfaces actuales (ChatGPT, Gemini, Claude) comparten la misma base computacional: arquitecturas basadas en transformers, predicción de tokens, distribución probabilística. Se puede argumentar que los modelos tienen capacidades comparables. Pero la diferencia relevante para RATIO no está en la capacidad del modelo sino en cuántos canales de personalización expone la interfaz. Claude, al momento de escribir esto, es la que más facilita la personalización a gran escala. Y para un framework cuyo objetivo es distribuir contexto en múltiples canales, la cantidad y granularidad de esos canales es lo que determina la elección.
-
-## §5 Naturaleza y límites
-
-RATIO es una metaconfiguración. No configura la IA; configura cómo el usuario organiza la información que la IA recibe. Es una capa por encima de la interacción directa con el modelo. Cuando RATIO funciona bien, el usuario toma decisiones de asignación (qué va en cada canal, con qué nivel de detalle, con qué prioridad) de manera deliberada y no improvisada. La IA nunca sabe que esas decisiones se tomaron dentro de un framework; simplemente recibe un contexto que, por estar bien organizado, le permite producir un output más preciso.
-
-Uno de los errores que cometí en las primeras versiones fue intentar crear un sistema donde cada pieza de información tuviera un lugar exacto y único. Un sistema completamente libre de solapamiento. Me di cuenta de que para lograrlo solo había dos opciones: o definir formalmente cada término del sistema (un coste cognitivo enorme) o usar notación matemática (lo cual hice, y resultó ser descriptivo sin utilidad real).
-
-La notación conjuntista que empleé en una versión de RATIO era matemática descriptiva: podías escribir definiciones y derivar teoremas, pero esos teoremas eran teoremas sobre una estructura formal que no se correspondía con el funcionamiento computacional real del modelo. Era como demostrar propiedades de un mapa cuando lo que importa es el territorio. Me satisfacía a nivel conceptual (mi mente decía "vale, está controlado"), pero la realidad era que no estaba controlado, porque la IA no trabaja con sistemas formales ni árboles de decisión, sino con funciones de probabilidad.
-
-Un ejemplo concreto del solapamiento que terminé aceptando: la distinción entre la output template de una skill (que define la estructura del documento: niveles de encabezado, notas al pie, elementos como definiciones o aclaraciones) y el formato del canal de estilo (que define elementos tipográficos: negritas, cursivas, énfasis). ¿Dónde termina la estructura y dónde empieza el formato? ¿Un encabezado es estructura o formato? ¿Una nota al pie es un elemento estructural del documento o un recurso tipográfico? Puede que ni siquiera exista una frontera clara. Y si bien puedo dedicar tiempo a establecerla ontológicamente, ¿va a funcionar mejor el output por eso? No. Lo que funciona es que ambas cosas estén especificadas en algún lugar del contexto con la prioridad adecuada. Dónde exactamente es menos importante de lo que parece.
-
-Aceptar esto fue un punto de inflexión. El criterio de asignación dejó de ser ontológico (dónde "debería" ir algo según su naturaleza) y pasó a ser funcional (dónde produce el efecto deseado sobre el output).
-
-Cuando uno configura instrucciones para un LLM, existe la tentación de formular restricciones en negativo: "no hagas X", "evita Y", "nunca uses Z". El problema es que las formulaciones negativas fuerzan al modelo a representar internamente lo que se quiere suprimir, y esa representación puede reactivar probabilísticamente exactamente lo que se pretende evitar. Los tokens de una prohibición contienen precisamente aquello que se prohíbe.
-
-Las restricciones formuladas en positivo ("usa X en lugar de Y", "emplea siempre Z") son más eficaces porque dirigen la distribución probabilística hacia lo deseado sin activar lo que se quiere evitar. Este principio, derivado de la experimentación y confirmado por la documentación de Anthropic, permea todo el diseño de RATIO. En la práctica no siempre es posible eliminar completamente las formulaciones negativas (a veces lo que se quiere expresar solo se puede expresar como prohibición), pero el criterio general es priorizar lo positivo.
-
-RATIO opera desde la interfaz de Claude, no desde la API. Esto supone limitaciones estructurales que el framework reconoce pero no puede resolver.
-
-No controlo la precedencia entre capas. La interfaz determina internamente qué peso relativo tienen las user preferences frente a las project instructions frente al prompt. Puedo observar experimentalmente cómo se comporta esa precedencia, pero no puedo modificarla. No controlo los contextos de seguridad: Anthropic inyecta instrucciones internas (system prompts) que el usuario no ve ni puede alterar. Estas instrucciones afectan al comportamiento del modelo y a veces entran en tensión con las instrucciones del usuario. No controlo la parametrización del modelo: la temperatura, el top-p y otros parámetros de muestreo no son accesibles desde la interfaz.
-
-Estas limitaciones no invalidan RATIO, pero lo delimitan. RATIO opera dentro de lo que la interfaz permite configurar y no pretende extenderse más allá.
-
-En ventanas de contexto largas, la información que queda en la zona central pierde peso relativo frente a la que está al inicio y al final. Este efecto fue documentado por Liu et al. (2023) en el artículo *Lost in the Middle*, donde demostraron que el rendimiento de los LLMs se degrada significativamente cuando la información relevante está en posiciones intermedias del contexto, incluso en modelos diseñados explícitamente para contextos largos. Anthropic lo denomina *context rot* en su artículo de ingeniería de contexto (2025): a medida que aumenta el número de tokens en la ventana, la capacidad del modelo para recuperar información de ese contexto disminuye.
-
-El prompt, por su posición al final de la ventana, sirve como mecanismo de recuperación: puede reforzar instrucciones que podrían haberse diluido en las capas intermedias. Esto explica por qué el prompt, a pesar de ser la capa más efímera, tiene tanto peso en la práctica. Y es una de las razones por las que RATIO no busca eliminar el prompt en favor de las capas permanentes, sino integrarlo como un canal más con una función específica.
-
-## §6 Historia iterativa
-
-Lo primero que hice, antes de conocer ningún framework, fue crear por mi cuenta lo que llamé un "protocolo para la elaboración de apuntes biomédicos". Esto fue en ChatGPT. La interfaz permitía crear un bot personalizado y administrarle una base de conocimientos, y ahí metí un documento extenso con todo lo que quería que el modelo hiciera: definiciones, restricciones, formato, contenido, estilo, ejemplos, parametrizaciones (que en realidad no tenían efecto real), instrucciones de todo tipo. Era un solo texto masivo que mezclaba todo sin jerarquía ni separación funcional.
-
-No funcionó como quería. Los outputs tenían metadiscurso, el modelo no seguía las instrucciones de manera consistente, los resultados se sentían artificiales y forzados. El protocolo era tan sobreespecificado que al mismo tiempo no servía para nada: regulaba tantas cosas que el modelo no sabía qué priorizar. Yo miraba los outputs y sentía que estaban mal, que se sentían falsos, pero no sabía exactamente por qué. Simplemente acumulaba insatisfacciones.
-
-Buscando cómo mejorar, encontré CO-STAR. El framework fue desarrollado por el equipo de Data Science e IA de GovTech Singapore (la agencia tecnológica del gobierno de Singapur) y ganó notoriedad cuando Sheila Teo lo utilizó para ganar la primera competición de prompt engineering con GPT-4 de Singapur en noviembre de 2023, con más de 400 participantes. Teo publicó después un artículo en Towards Data Science detallando las estrategias que empleó, y CO-STAR era la pieza central.
-
-CO-STAR es un acrónimo: Context, Objective, Style, Tone, Audience, Response. Cada componente define un aspecto del prompt: el contexto de la tarea, el objetivo, el estilo deseado, el tono, la audiencia y el formato de respuesta. Es un framework de prompt: estructura lo que va dentro de un único mensaje.
-
-Pero yo nunca llegué a usar CO-STAR como prompt. Lo que hice fue tomar sus categorías como inspiración para organizar las user preferences de Claude (para este momento ya había migrado a Claude). Es decir, usé un framework de prompting como base para lo que en realidad era ingeniería de contexto, sin saber todavía que eso tenía nombre. Metí las categorías de CO-STAR en las user preferences como instrucciones globales, y en el prompt seguía trabajando ad hoc.
-
-Esto fue un avance respecto al protocolo monolítico de ChatGPT, pero seguía siendo insuficiente. Las user preferences solas no cubren toda la configuración necesaria, y el prompt ad hoc reintroducía la heterogeneidad que quería eliminar.
-
-La primera versión de RATIO fue un intento de ir más allá. Tomé todas las instrucciones que tenía dispersas y las organicé en un documento formal con capítulos y artículos, como una especie de reglamento.
-
-El problema fue doble. El formato legalista no reflejaba la naturaleza del sistema que intentaba configurar: los LLMs no procesan artículos y capítulos, procesan tokens. Y el documento mezclaba el framework (las reglas de organización) con su instanciación (el contenido concreto para biomedicina). No estaba claro qué era estructura reutilizable y qué era configuración específica.
-
-Intenté resolver el problema de la formalización subiendo el nivel de abstracción. Reescribí RATIO usando notación de conjuntos, funciones y parámetros tipificados. La idea era que una especificación matemáticamente precisa eliminaría las ambigüedades.
-
-El resultado fue más abstracto, pero no más útil. Como expliqué en §5.2, la notación era descriptiva: permitía derivar teoremas sobre una estructura formal que no se correspondía con el funcionamiento computacional del modelo. Era satisfactoria a nivel conceptual e inútil a nivel práctico. Mayor abstracción no significó mayor utilidad.
-
-La tercera reformulación fue la que más avanzó. Reorganicé todo en cinco capas (correspondientes a los cinco canales de Claude) con un catálogo de facetas dentro de cada capa. Cada faceta tiene un alcance definido (qué abarca) y unas exclusiones (qué no abarca y dónde va en su lugar).
-
-El avance principal fue la separación entre el framework y su instanciación. Las capas y facetas son estructura: definen dónde va cada tipo de información. El contenido concreto (qué dice exactamente mi instrucción sobre estilo, qué define mi proyecto de Bioquímica) es instanciación. Esta separación permite que el mismo framework sirva para proyectos distintos sin necesidad de reescribirlo.
-
-La última fase fue confrontar RATIO con evidencia externa. Realicé una auditoría basada en la documentación oficial de Anthropic y en la literatura sobre ingeniería de prompts y contexto. El objetivo era verificar qué partes de RATIO estaban respaldadas por evidencia, qué partes contradecían el funcionamiento documentado de los modelos, y qué partes eran supuestos no verificados.
-
-El resultado fue una serie de correcciones. Se eliminaron secciones que especulaban sobre mecanismos internos del modelo. Se corrigieron supuestos sobre la precedencia entre capas. Se incorporaron hallazgos sobre el efecto de dilución en contexto largo. Y se condensó todo en una especificación técnica (el documento `especificacion.md`) que contiene las definiciones, la arquitectura y el catálogo de facetas sin intentar explicar el porqué de cada decisión (para eso está este documento).
-
-No hubo un momento de ruptura entre cada versión. No hubo un output catastrófico que me hiciera abandonar una formulación y adoptar otra. Lo que hubo fue una acumulación de insatisfacciones. Errores de formato, errores de contenido, el modelo que no leía todo el contenido de una diapositiva, el modelo que hacía cosas que no le había pedido. Cada uno de estos errores parecía mínimo en el momento, pero cuando miras atrás desde una versión más avanzada, lo que antes era una pequeña insatisfacción se revela como un error considerable.
-
-Todo este proceso lleva aproximadamente seis meses. No he podido dedicarme a ello de manera continua (estudio Medicina al mismo tiempo), y buena parte del avance requiere tiempo de maduración: hay ideas que no se pueden mejorar sin dejar que reposen. Además, la literatura sobre ingeniería de contexto está dispersa en repositorios de GitHub, documentaciones técnicas de empresas específicas y artículos que no son fáciles de encontrar si no sabes exactamente qué buscar. Mucho tiempo se me fue en ideas ingenuas que habría evitado si hubiera tenido una formación más sólida en el funcionamiento de los LLMs desde el principio. El cambio más sustancial vino cuando dejé de tratar la IA como una caja negra y estudié cómo funcionan realmente estos modelos: qué son los tokens, qué es la distribución probabilística, por qué la estructura formal no es lo mismo que el contenido informativo. Después de eso dejé de caer en errores que antes me parecían razonables.
-
-Ahora mismo RATIO no está completamente terminado. Hay cosas sobre las que sigo reflexionando y aprendiendo. Pero es la versión más informada y más funcional que he tenido, y la primera que considero lo suficientemente estable como para documentar.
-
-
-## §7 Dónde tiene fuerza y dónde no lo sé
-
-RATIO surgió del estudio biomédico. Ahí es donde tiene un historial demostrado. La elaboración de apuntes a partir de material docente, la contrastación de fuentes, la investigación bibliográfica, la redacción de documentos formales: todo esto funciona con RATIO porque las skills están diseñadas para estas tareas y las capas permanentes están calibradas para el ámbito del conocimiento.
-
-Pero la estructura en sí (cinco capas modulares, un catálogo de facetas con criterios de asignación, un gradiente de especificidad que el usuario recorre según la tarea) no tiene nada que sea intrínsecamente biomédico. Podría instanciarse para Filosofía, para Computación, para Derecho, para cualquier dominio donde tenga sentido acotar el contexto que recibe un LLM. No he probado estas instanciaciones todavía, así que no puedo afirmar que funcionen con la misma eficacia. Pero la lógica del framework (distribuir información configurable en canales de distinto alcance y persistencia) es agnóstica respecto al dominio.
-
-Lo que sí tengo claro es que RATIO tiene más sentido cuanto más consistente y prolongada sea la interacción con la IA. Para una pregunta aislada, configurar cinco capas es sobreingeniería. Para meses de trabajo sostenido dentro de un dominio, la inversión en configuración se amortiza en cada sesión. RATIO es una herramienta de rendimiento a largo plazo, no de conveniencia inmediata.
-
-Y en el fondo, lo que intenta hacer es algo simple de describir, aunque difícil de ejecutar bien: delimitar contexto. Darle al usuario una manera de decir "puedes organizar la información de esta forma, estos son los criterios, y ahora tú decides qué poner en cada sitio según lo que necesites". Una guía para navegar un espacio de configuración que, sin estructura, resulta difícil de aprovechar. Eso es RATIO.
+Este resumo visa oferecer uma visão clara e rápida do projeto, eliminando informações redundantes e focando nos pontos principais.
