@@ -47,13 +47,41 @@ RATIO estructura la información configurable por el usuario de Claude en claude
     │       │       │   └── No → L₁
 ```
 
-### 3.3 Asignación de facetas
+
+## §4 Arquitectura de facetas
+
+### 4.1 Tabla de facetas
+
+| ID | Nombre | Capa | Obligatoriedad |
+|----|--------|------|----------------|
+| F₁ | Interlocutor profiles | L₁ | Obligatoria |
+| F₂ | Epistemic policies | L₁ | Obligatoria |
+| F₃ | Global constraints | L₁ | Obligatoria |
+| F₄ | Domain profile | L₂ | Obligatoria |
+| F₅ | Objective | L₂ | Obligatoria |
+| F₆ | Knowledge policies | L₂ | Obligatoria |
+| F₇ | Project constraints | L₂ | Opcional |
+| F₈ | Lexical-semantic rules | L₃ | Obligatoria |
+| F₉ | Morphosyntactic rules | L₃ | Obligatoria |
+| F₁₀ | Pragmatic-tonal rules | L₃ | Obligatoria |
+| F₁₁ | Discourse rules | L₃ | Obligatoria |
+| F₁₂ | Style examples | L₃ | Obligatoria |
+| FS₁ | Trigger | L₄ | Obligatoria por skill |
+| FS₂ | Procedure | L₄ | Obligatoria por skill |
+| FS₃ | Resources | L₄ | Opcional por skill |
+| FS₄ | Examples | L₄ | Opcional por skill |
+| F₁₃ | Task specification | L₅ | Obligatoria |
+| F₁₄ | Scope | L₅ | Obligatoria |
+| F₁₅ | Task constraints | L₅ | Opcional |
+| F₁₆ | Task examples | L₅ | Opcional |
+
+### 4.2 Asignación de facetas
 
 **L₁ · User preferences**
 
 ```
 ¿Define quién es el usuario o cómo se posiciona el modelo ante él?
-├── Sí → F₁ (Context)
+├── Sí → F₁ (Interlocutor profiles)
 └── No
     ├── ¿Regula cómo el modelo trata la evidencia, la incertidumbre o el error?
     │   ├── Sí → F₂ (Epistemic policies)
@@ -104,45 +132,15 @@ RATIO estructura la información configurable por el usuario de Claude en claude
     │       │   ├── Sí → F₁₃ (Task specification)
     │       │   └── No → F₁₄ (Scope)
 ```
-
-## §4 Catálogo de facetas
-
-### 4.1 Tabla de facetas
-
-| ID | Nombre | Capa | Obligatoriedad |
-|----|--------|------|----------------|
-| F₁ | Context | L₁ | Obligatoria |
-| F₂ | Epistemic policies | L₁ | Obligatoria |
-| F₃ | Global constraints | L₁ | Obligatoria |
-| F₄ | Domain profile | L₂ | Obligatoria |
-| F₅ | Objective | L₂ | Obligatoria |
-| F₆ | Knowledge policies | L₂ | Obligatoria |
-| F₇ | Project constraints | L₂ | Opcional |
-| F₈ | Lexical-semantic rules | L₃ | Obligatoria |
-| F₉ | Morphosyntactic rules | L₃ | Obligatoria |
-| F₁₀ | Pragmatic-tonal rules | L₃ | Obligatoria |
-| F₁₁ | Discourse rules | L₃ | Obligatoria |
-| F₁₂ | Style examples | L₃ | Obligatoria |
-| FS₁ | Trigger | L₄ | Obligatoria por skill |
-| FS₂ | Procedure | L₄ | Obligatoria por skill |
-| FS₃ | Resources | L₄ | Opcional por skill |
-| FS₄ | Examples | L₄ | Opcional por skill |
-| F₁₃ | Task specification | L₅ | Obligatoria |
-| F₁₄ | Scope | L₅ | Obligatoria |
-| F₁₅ | Task constraints | L₅ | Opcional |
-| F₁₆ | Task examples | L₅ | Opcional |
-
-
 ### L₁ User preferences
 
 Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo o la tarea.
 
-**F₁ — Context.** Información declarativa estable sobre el usuario y sobre la postura del modelo.
+**F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario y sobre la postura del modelo.
 
 **F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre y los errores del usuario.
 
 **F₃ — Global constraints.** Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto.
-
 
 ### L₂ Project instructions
 
