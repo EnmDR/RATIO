@@ -1,6 +1,6 @@
-
 # RATIO (RATIOnal Architecture for Tailored Interaction and Output)
-## Especificaciones
+
+## Especificación 
 
 ## §1 Alcance
 
@@ -12,7 +12,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 
 **Faceta.** Categoría temática de instrucciones dentro de una capa. Es la unidad organizativa del framework. No se comunica al modelo: es una herramienta para que el usuario decida dónde poner cada instrucción.
 
-**Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario en la instanciación. Tres formas lingüísticas posibles:
+**Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario. Tres formas lingüísticas posibles:
 
 - Declarativo: "X es Y".
 - Política: "Cuando X, haz Y" o "Haz X de manera Y".
@@ -30,7 +30,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | L₄ · Skills | Personalización → Skills | Todas las conversaciones | Condicional (coincidencia semántica) |
 | L₅ · Prompt | Mensaje del usuario | Mensaje individual | Una inferencia |
 
-### 3.2 · Asignación de capas
+### 3.2 Asignación de capas
 
 ```
 ¿Cambia entre mensajes?
@@ -49,13 +49,64 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 
 ### 3.3 Asignación de facetas
 
-Una vez determinada la capa, la faceta se identifica con la pregunta discriminante de cada una (§4). El procedimiento es:
+**L₁ · User preferences**
 
 ```
-1. Determinar la capa con el árbol de §3.2.
-2. Recorrer las preguntas discriminantes de las facetas de esa capa.
-3. Asignar a la primera faceta cuya pregunta se responda afirmativamente.
-4. Si ninguna pregunta se responde afirmativamente, revisar si la capa es correcta.
+¿Define quién es el usuario o cómo se posiciona el modelo ante él?
+├── Sí → F₁ (Context)
+└── No
+    ├── ¿Regula cómo el modelo trata la evidencia, la incertidumbre o el error?
+    │   ├── Sí → F₂ (Epistemic policies)
+    │   └── No → F₃ (Global constraints)
+```
+
+**L₂ Project instructions**
+
+```
+¿Es una restricción específica del proyecto?
+├── Sí → F₇ (Project constraints)
+└── No
+    ├── ¿Define el dominio, sus convenciones o el rol del modelo en el proyecto?
+    │   ├── Sí → F₄ (Domain profile)
+    │   └── No
+    │       ├── ¿Define el resultado global esperado del proyecto?
+    │       │   ├── Sí → F₅ (Objective)
+    │       │   └── No → F₆ (Knowledge policies)
+```
+
+**L₃ Style**
+
+```
+¿Es una muestra concreta de output?
+├── Sí → F₁₂ (Style examples)
+└── No
+    ├── ¿Regula qué palabras se usan o se evitan?
+    │   ├── Sí → F₈ (Lexical-semantic rules)
+    │   └── No
+    │       ├── ¿Regula cómo se construyen las oraciones?
+    │       │   ├── Sí → F₉ (Morphosyntactic rules)
+    │       │   └── No
+    │       │       ├── ¿Regula la actitud discursiva (formalidad, tono, cortesía)?
+    │       │       │   ├── Sí → F₁₀ (Pragmatic-tonal rules)
+    │       │       │   └── No → F₁₁ (Discourse rules)
+```
+
+**L₄ Skills**
+
+Las sub-facetas son componentes estructurales del directorio de la skill: FS₁ es el frontmatter, FS₂ es el cuerpo de SKILL.md, FS₃ son los archivos de recursos y FS₄ son los ejemplos.
+
+**L₅ Prompt**
+
+```
+¿Es un ejemplo de input-output para esta tarea?
+├── Sí → F₁₆ (Task examples)
+└── No
+    ├── ¿Es una restricción puntual para este mensaje?
+    │   ├── Sí → F₁₅ (Task constraints)
+    │   └── No
+    │       ├── ¿Define qué acción ejecuta el modelo?
+    │       │   ├── Sí → F₁₃ (Task specification)
+    │       │   └── No → F₁₄ (Scope)
 ```
 
 ## §4 Catálogo de facetas
@@ -90,65 +141,44 @@ Una vez determinada la capa, la faceta se identifica con la pregunta discriminan
 
 Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo o la tarea.
 
-**F₁ — Context**
+**F₁ — Context.** Información declarativa estable sobre el usuario y sobre la postura del modelo.
 
-Información declarativa estable sobre el usuario y sobre la postura del modelo.
+**F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre y los errores del usuario.
 
-**F₂ — Epistemic policies**
+**F₃ — Global constraints.** Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto.
 
-Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre y los errores del usuario. 
 
-**F₃ — Global constraints**
+### L₂ Project instructions
 
-Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto.
+Instrucciones que aplican a todas las conversaciones dentro de un proyecto.
 
-### L₂ · Project instructions
+**F₄ — Domain profile.** Identidad disciplinar del proyecto.
 
-Instrucciones que aplican a todas las conversaciones dentro de un proyecto. 
+**F₅ — Objective.** Resultado que el proyecto debe producir.
 
-**F₄ — Domain profile**
+**F₆ — Knowledge policies.** Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto.
 
-Identidad disciplinar del proyecto.
+**F₇ — Project constraints** *(opcional)***.** Restricciones persistentes dentro del proyecto que complementan F₃.
 
-**F₅ — Objective**
 
-Resultado que el proyecto debe producir.
+### L₃ Style
 
-**F₆ — Knowledge policies**
+Reglas que regulan la forma lingüística del output. Cada estilo es una unidad autónoma. Un mismo usuario puede mantener múltiples estilos y alternar entre ellos sin modificar L₁ ni L₂.
 
-Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto.
+**F₈ — Lexical-semantic rules.** Reglas sobre la selección y el uso de unidades léxicas.
 
-**F₇ — Project constraints** *(opcional)*
+**F₉ — Morphosyntactic rules.** Reglas sobre la construcción de oraciones.
 
-Restricciones persistentes dentro del proyecto que complementan F₃.
+**F₁₀ — Pragmatic-tonal rules.** Reglas sobre la actitud discursiva del modelo.
 
-### L₃ · Style
+**F₁₁ — Discourse rules.** Reglas sobre la cohesión y la coherencia a nivel supraoracional.
 
-Conjunto de reglas que regulan la forma lingüística y visual del output. 
+**F₁₂ — Style examples.** Muestras de output que instancian simultáneamente F₈–F₁₁.
 
-**F₈ — Lexical-semantic rules**
 
-Reglas sobre la selección y el uso de unidades léxicas.
+### L₄ Skills
 
-**F₉ — Morphosyntactic rules**
-
-Reglas sobre la construcción de oraciones.
-
-**F₁₀ — Pragmatic-tonal rules**
-
-Reglas sobre la actitud discursiva del modelo.
-
-**F₁₁ — Discourse rules**
-
-Reglas sobre la cohesión y la coherencia a nivel supraoracional.
-
-**F₁₂ — Style examples**
-
-Muestras de output que instancian simultáneamente F₈–F₁₂.
-
-### L₄ · Skills
-
-Instrucciones procedurales, reutilizables entre proyectos y contigenes a un tipo de tarea que se activan por coincidencia semántica.
+Instrucciones procedurales, reutilizables entre proyectos y contingentes a un tipo de tarea. Se activan por coincidencia semántica.
 
 ```
 skill-name/
@@ -158,40 +188,23 @@ skill-name/
 └── assets/           # opcional
 ```
 
-**FS₁ — Trigger**
+**FS₁ — Trigger.** Activación de la skill en el campo `description` del frontmatter YAML de `SKILL.md`.
 
-Activación de la skill en el campo `description` del frontmatter YAML de `SKILL.md`. 
+**FS₂ — Procedure.** Instrucciones en el cuerpo de `SKILL.md` tras el frontmatter.
 
-**FS₂ — Procedure**
+**FS₃ — Resources** *(opcional)***.** Archivos adicionales en el directorio de la skill.
 
-Instrucciones en el cuerpo de `SKILL.md` tras el frontmatter. 
+**FS₄ — Examples** *(opcional)***.** Pares input-output que demuestran el resultado esperado de la skill.
 
-**FS₃ — Resources** *(opcional)*
 
-Archivos adicionales en el directorio de la skill. 
+### L₅ Prompt
 
-**FS₄ — Examples** *(opcional)*
+Instrucciones efímeras que aplican a un único mensaje.
 
-Pares input-output que demuestran el resultado esperado de la skill.
+**F₁₃ — Task specification.** Operación concreta que el modelo ejecuta en respuesta al mensaje.
 
-### L₅ · Prompt
+**F₁₄ — Scope.** Alcance temático de la tarea.
 
-Instrucciones efímeras que aplican a un único mensaje. 
+**F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual.
 
-**F₁₃ — Task specification**
-
-Operación concreta que el modelo ejecuta en respuesta al mensaje.
-
-**F₁₄ — Scope**
-
-Alcance temático de la tarea.
-
-**F₁₅ — Task constraints** *(opcional)*
-
-Restricciones efímeras que aplican exclusivamente al mensaje actual.
-
-**F₁₆ — Task examples** *(opcional)*
-
-Pares input-output que ejemplifican la tarea del mensaje.
-
-*Condición de instanciación.* Se instancia cuando la tarea es ambigua o novedosa y la combinación de otras capas no especifica suficientemente el output.
+**F₁₆ — Task examples** *(opcional)***.** Pares input-output que ejemplifican la tarea del mensaje. Se instancia cuando la tarea es ambigua o novedosa y la combinación de otras capas no especifica suficientemente el output.
