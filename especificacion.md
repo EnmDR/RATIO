@@ -10,7 +10,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 
 **Capa.** Canal de la plataforma al que se asignan instrucciones. Cada capa tiene una persistencia (en qué conversaciones son efectivas las instrucciones) y un modo de activación (bajo qué condición entran en el contexto de inferencia).
 
-**Faceta.** Categoría temática de instrucciones dentro de una capa. Es la unidad organizativa del framework. No se comunica al modelo: es una herramienta para que el usuario decida dónde poner cada instrucción.
+**Faceta.** Categoría temática de instrucciones dentro de una capa. 
 
 **Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario en la instanciación. Tres formas lingüísticas posibles:
 
