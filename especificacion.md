@@ -91,10 +91,6 @@ RATIO estructura la información configurable por el usuario de Claude en claude
     │       │       │   └── No → F₁₁ (Discourse rules)
 ```
 
-**L₄ Skills**
-
-Las sub-facetas son componentes estructurales del directorio de la skill: FS₁ es el frontmatter, FS₂ es el cuerpo de SKILL.md, FS₃ son los archivos de recursos y FS₄ son los ejemplos.
-
 **L₅ Prompt**
 
 ```
