@@ -6,8 +6,6 @@
 
 RATIO es una guía para el usuario que establece criterios para organizar la información configurable en los canales de personalización que expone una interfaz de LLM. Su objetivo es la delimitación de contexto: permitir al usuario acotar, con la granularidad que necesite, el contexto que recibe el modelo.
 
-El nombre viene del latín. Cuando empecé a buscar un nombre, vi que la mayoría de frameworks usaban acrónimos de sus componentes (CO-STAR, TIDD-EC y similares). Intenté crear uno, pero no había manera de que las capas y facetas del sistema formaran un acrónimo que sonara bien sin forzar la terminología y perder precisión. Así que opté por un nombre con significado propio en lugar de un acrónimo funcional.
-
 La palabra clave en la definición es *guía*. RATIO no es un software, no es un plugin, no es un archivo que se cargue en la IA. Es un conjunto de principios y estructuras que yo, como usuario, aplico para decidir qué información poner, dónde ponerla y por qué. El resultado de aplicar RATIO es un contexto bien distribuido en los canales de la interfaz. Lo que la IA recibe es ese resultado, no RATIO en sí.
 
 RATIO no es una técnica de prompting. Las técnicas de prompting operan dentro de un mensaje: cómo formular una instrucción, cómo pedir razonamiento paso a paso, cómo dar ejemplos. RATIO opera en un nivel distinto. Estructura la totalidad del contexto que el modelo recibe, del cual el prompt es solo una de las vías. De hecho, RATIO podría contener técnicas de prompting dentro de sus propias estructuras: son herramientas que se usan *dentro* del framework, no competidoras del framework.
