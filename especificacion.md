@@ -12,7 +12,7 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 
 **Faceta.** Categoría temática de instrucciones dentro de una capa. Es la unidad organizativa del framework. No se comunica al modelo: es una herramienta para que el usuario decida dónde poner cada instrucción.
 
-**Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario. Tres formas lingüísticas posibles:
+**Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario en la instanciación. Tres formas lingüísticas posibles:
 
 - Declarativo: "X es Y".
 - Política: "Cuando X, haz Y" o "Haz X de manera Y".
