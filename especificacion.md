@@ -66,10 +66,10 @@ RATIO estructura la información configurable por el usuario de Claude en claude
 | F₁₀ | Pragmatic-tonal rules | L₃ | Obligatoria |
 | F₁₁ | Discourse rules | L₃ | Obligatoria |
 | F₁₂ | Style examples | L₃ | Obligatoria |
-| FS₁ | Trigger | L₄ | Obligatoria por skill |
-| FS₂ | Procedure | L₄ | Obligatoria por skill |
-| FS₃ | Resources | L₄ | Opcional por skill |
-| FS₄ | Skill Examples | L₄ | Opcional por skill |
+| FS₁ | SKILL.md | L₄ | Obligatoria por skill |
+| FS₂ | Scripts | L₄ | Obligatoria por skill |
+| FS₃ | References | L₄ | Opcional por skill |
+| FS₄ | Assets | L₄ | Opcional por skill |
 | F₁₃ | Task specification | L₅ | Obligatoria |
 | F₁₄ | Task scope | L₅ | Obligatoria |
 | F₁₅ | Task constraints | L₅ | Opcional |
