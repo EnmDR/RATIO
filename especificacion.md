@@ -4,7 +4,7 @@
 
 ## Alcance
 
-RATIO estructura la información configurable por el usuario de Claude en claude.ai. Organiza esa información en cinco capas correspondientes a los cinco canales de la plataforma (user preferences, project instructions, style, skills, prompt), cada una con un catálogo de facetas que determina qué instrucciones admite.
+RATIO es una **guía** que estructura la información configurable por el usuario de Claude en claude.ai. Organiza esa información en cinco capas correspondientes a los cinco canales de la plataforma (user preferences, project instructions, style, skills, prompt), cada una con un catálogo de facetas que determina qué instrucciones admite.
 
 ## Definiciones
 
