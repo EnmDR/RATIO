@@ -182,15 +182,6 @@ skill-name/
 └── assets/           # opcional
 ```
 
-**FS₁ — Trigger.** Activación de la skill en el campo `description` del frontmatter YAML de `SKILL.md`.
-
-**FS₂ — Procedure.** Instrucciones en el cuerpo de `SKILL.md` tras el frontmatter.
-
-**FS₃ — Resources** *(opcional)***.** Archivos adicionales en el directorio de la skill.
-
-**FS₄ — Skill examples** *(opcional)***.** Pares input-output que demuestran el resultado esperado de la skill.
-
-
 ### L₅ Prompt
 
 Instrucciones efímeras que aplican a un único mensaje.
