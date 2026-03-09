@@ -71,7 +71,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 | FS₃ | References | L₄ | Opcional|
 | FS₄ | Assets | L₄ | Opcional|
 | F₁₃ | Task specification | L₅ | Obligatoria |
-| F₁₄ | Task scope | L₅ | Obligatoria |
+| F₁₄ | Task scope | L₅ | Opcional |
 | F₁₅ | Task constraints | L₅ | Opcional |
 | F₁₆ | Task examples | L₅ | Opcional |
 
@@ -188,7 +188,7 @@ Instrucciones efímeras que aplican a un único mensaje.
 
 **F₁₃ — Task specification.** Operación concreta que el modelo ejecuta en respuesta al mensaje.
 
-**F₁₄ — Task scope.** Alcance temático de la tarea.
+**F₁₄ — Task scope *(opcional)*.** Alcance temático de la tarea.
 
 **F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual.
 
