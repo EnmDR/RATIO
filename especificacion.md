@@ -157,7 +157,7 @@ Instrucciones que aplican a todas las conversaciones dentro de un proyecto.
 
 ### L₃ Style
 
-Reglas que regulan la forma lingüística del output. Cada estilo es una unidad autónoma. Un mismo usuario puede mantener múltiples estilos y alternar entre ellos sin modificar L₁ ni L₂.
+Reglas que regulan la forma lingüística del output agrupadas dentro de una unidad autónoma (el estilo propiamente dicho).
 
 **F₈ — Lexical-semantic rules.** Reglas sobre la selección y el uso de unidades léxicas.
 
