@@ -134,11 +134,11 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 ```
 ### L₁ User preferences
 
-Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo, la skill o la tarea.
+Instrucciones globales que aplican a todas las conversaciones.
 
 **F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario (preferencias contextuales) y sobre la postura del modelo (preferencias conductuales).
 
-**F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre y los errores del usuario.
+**F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre, así como los errores del usuario.
 
 **F₃ — Global constraints.** Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto.
 
@@ -190,6 +190,7 @@ Instrucciones efímeras que aplican a un único mensaje.
 
 **F₁₄ — Task scope *(opcional)*.** Alcance temático de la tarea.
 
-**F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual.
+**F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual y que complementan F₃ y F₇.
+.
 
-**F₁₆ — Task examples** *(opcional)***.** Pares input-output que ejemplifican la tarea del mensaje. Se instancia cuando la tarea es ambigua o novedosa y la combinación de otras capas no especifica suficientemente el output.
+**F₁₆ — Task examples** *(opcional)***.** Muestras de output que instancian todas las facetas. 
