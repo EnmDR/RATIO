@@ -134,7 +134,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 ```
 ### L₁ User preferences
 
-Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo o la tarea.
+Instrucciones globales que aplican a todas las conversaciones con independencia del proyecto, el estilo, la skill o la tarea.
 
 **F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario (preferencias contextuales) y sobre la postura del modelo (preferencias conductuales).
 
