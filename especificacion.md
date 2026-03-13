@@ -157,7 +157,7 @@ Instrucciones que aplican a todas las conversaciones dentro de un proyecto.
 
 ### L₃ Style
 
-Reglas que regulan la forma lingüística del output agrupadas dentro de una unidad autónoma (el estilo propiamente dicho).
+Reglas que regulan la forma lingüística del output agrupadas dentro de una unidad autónoma.
 
 **F₈ — Lexical-semantic rules.** Reglas sobre la selección y el uso de unidades léxicas.
 
