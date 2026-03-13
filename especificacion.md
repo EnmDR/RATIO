@@ -30,7 +30,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 | L₄ · Skills | Personalización → Skills | Todas las conversaciones | Condicional (coincidencia semántica) |
 | L₅ · Prompt | Mensaje del usuario | Mensaje individual | Una inferencia |
 
-### Asignación de capas
+### Asignación de facetas por capas
 
 ```
 ¿Cambia entre mensajes?
@@ -75,7 +75,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 | F₁₅ | Task constraints | L₅ | Opcional |
 | F₁₆ | Task examples | L₅ | Opcional |
 
-### Asignación de facetas
+### Asignación de configurables por facetas 
 
 **L₁ · User preferences**
 
