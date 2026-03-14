@@ -8,13 +8,10 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 
 ## Definiciones
 
-**Capa.** Canal de la plataforma al que se asignan instrucciones. Cada capa tiene una persistencia (en qué conversaciones son efectivas las instrucciones) y un modo de activación (bajo qué condición entran en el contexto de inferencia).
+**Capa.** Canal de la plataforma al que se asignan instrucciones. Cada capa tiene una persistencia (en qué conversaciones son efectivas las instrucciones) y una activación (bajo qué condición entran en el contexto de inferencia).
 
-**Faceta.** Categoría temática de instrucciones dentro de una capa. 
-
-**Configurable.** Aspecto del comportamiento del modelo que admite especificación por el usuario en la instanciación. Tres formas lingüísticas posibles:
-
-- Declarativo: "X es Y".
+**Faceta.** Categoría temática de instrucciones dentro de una capa. Cada faceta tiene una obligatoriedad. Las instrucciones pueden tomar tres formas lingüísticas posibles: 
+- Declarativa: "X es Y".
 - Política: "Cuando X, haz Y" o "Haz X de manera Y".
 - Restricción: forma preferida "Haz Y en lugar de X". Forma negativa ("No hagas X") reservada para exclusiones que no admiten reformulación positiva.
 
@@ -22,13 +19,14 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 
 ### Tabla de capas
 
-| Capa | Interfaz | Persistencia | Activación |
-|------|----------|-------------|------------|
-| L₁ · User preferences | Ajustes → Preferencias personales | Todas las conversaciones | Siempre activa |
-| L₂ · Project instructions | Proyecto → Instrucciones del proyecto | Conversaciones del proyecto | Siempre activa |
-| L₃ · Style | Personalización → Estilos | Conversaciones con estilo activo | Siempre activa |
-| L₄ · Skills | Personalización → Skills | Todas las conversaciones | Condicional (coincidencia semántica) |
-| L₅ · Prompt | Mensaje del usuario | Mensaje individual | Una inferencia |
+Fundamentada. Depende de Claude. 
+| Capa | Descripción | Persistencia | Activación |
+|------|-------------|-------------|------------|
+| L₁ o user preferences | Instrucciones globales que aplican a todas las conversaciones. | Todas las conversaciones | Siempre activa |
+| L₂ o project instructions | Instrucciones que aplican a todas las conversaciones dentro de un proyecto. | Conversaciones del proyecto | Siempre activa |
+| L₃ o style | Reglas que regulan la forma lingüística del output agrupadas dentro de una unidad autónoma. | Conversaciones con estilo activo | Siempre activa |
+| L₄ o skills | Instrucciones procedurales, reutilizables entre proyectos y contingentes a un tipo de tarea que se activan por coincidencia semántica. | Todas las conversaciones | Condicionalmente activa (coincidencia semántica) |
+| L₅ o prompt | Instrucciones efímeras que aplican a un único mensaje. | Mensaje individual | Una inferencia |
 
 ### Asignación de facetas por capas
 
@@ -39,7 +37,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
     ├── ¿Cambia entre proyectos?
     │   ├── Sí → L₂
     │   └── No
-    │       ├── ¿Es un procedimiento contingente a un tipo de tarea?
+    │       ├── ¿Es un procedimiento contingente a un tipo de tarea? 
     │       │   ├── Sí → L₄
     │       │   └── No
     │       │       ├── ¿Regula la forma lingüística del output?
@@ -52,32 +50,33 @@ RATIO es una **guía** que estructura la información configurable por el usuari
 
 ### Tabla de facetas
 
-| ID | Nombre | Capa | Obligatoriedad |
-|----|--------|------|----------------|
-| F₁ | Interlocutor profiles | L₁ | Obligatoria |
-| F₂ | Epistemic policies | L₁ | Obligatoria |
-| F₃ | Global constraints | L₁ | Obligatoria |
-| F₄ | Domain profile | L₂ | Obligatoria |
-| F₅ | Project objective | L₂ | Obligatoria |
-| F₆ | Source policies | L₂ | Obligatoria |
-| F₇ | Project constraints | L₂ | Opcional |
-| F₈ | Lexical-semantic rules | L₃ | Obligatoria |
-| F₉ | Morphosyntactic rules | L₃ | Obligatoria |
-| F₁₀ | Pragmatic-tonal rules | L₃ | Obligatoria |
-| F₁₁ | Discourse rules | L₃ | Obligatoria |
-| F₁₂ | Style examples | L₃ | Obligatoria |
-| FS₁ | SKILL.md | L₄ | Obligatoria|
-| FS₂ | Scripts | L₄ | Opcional|
-| FS₃ | References | L₄ | Opcional|
-| FS₄ | Assets | L₄ | Opcional|
-| F₁₃ | Task specification | L₅ | Obligatoria |
-| F₁₄ | Task scope | L₅ | Opcional |
-| F₁₅ | Task constraints | L₅ | Opcional |
-| F₁₆ | Task examples | L₅ | Opcional |
+Arbitraria. Depende del usuario. 
+| Faceta | Descripción | Capa | Obligatoriedad |
+|------|-------------|------|----------------|
+| F₁ o interlocutor profiles | Información declarativa estable sobre el usuario (preferencias contextuales) y sobre la postura del modelo (preferencias conductuales). | L₁ | Obligatoria |
+| F₂ o epistemic policies | Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre, así como los errores del usuario. | L₁ | Obligatoria |
+| F₃ o global constraints | Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto. | L₁ | Obligatoria |
+| F₄ o domain profile | Identidad disciplinar del proyecto. | L₂ | Obligatoria |
+| F₅ o project objective | Resultado que el proyecto debe producir. | L₂ | Obligatoria |
+| F₆ o source policies | Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto. | L₂ | Obligatoria |
+| F₇ o project constraints | Restricciones persistentes dentro del proyecto que complementan F₃. | L₂ | Opcional |
+| F₈ o lexical-semantic rules | Reglas sobre la selección y el uso de unidades léxicas. | L₃ | Obligatoria |
+| F₉ o morphosyntactic rules | Reglas sobre la construcción de oraciones. | L₃ | Obligatoria |
+| F₁₀ o pragmatic-tonal rules | Reglas sobre la actitud discursiva del modelo. | L₃ | Obligatoria |
+| F₁₁ o discourse rules | Reglas sobre la cohesión y la coherencia a nivel supraoracional. | L₃ | Obligatoria |
+| F₁₂ o style examples | Muestras de output que instancian simultáneamente F₈–F₁₁. | L₃ | Obligatoria |
+| FS₁ o SKILL.md | | L₄ | Obligatoria |
+| FS₂ o scripts | | L₄ | Opcional |
+| FS₃ o references | | L₄ | Opcional |
+| FS₄ o assets | | L₄ | Opcional |
+| F₁₃ o task specification | Operación concreta que el modelo ejecuta en respuesta al mensaje. | L₅ | Obligatoria |
+| F₁₄ o task scope | Alcance temático de la tarea. | L₅ | Opcional |
+| F₁₅ o task constraints | Restricciones efímeras que aplican exclusivamente al mensaje actual y que complementan F₃ y F₇. | L₅ | Opcional |
+| F₁₆ o task examples | Muestras de output. | L₅ | Opcional |
 
-### Asignación de configurables por facetas 
+### Asignación de instrucciones por facetas 
 
-**L₁ · User preferences**
+**L₁**
 
 ```
 ¿Define quién es el usuario o cómo se posiciona el modelo ante él?
@@ -88,7 +87,7 @@ RATIO es una **guía** que estructura la información configurable por el usuari
     │   └── No → F₃ (Global constraints)
 ```
 
-**L₂ Project instructions**
+**L₂ o project instructions**
 
 ```
 ¿Es una restricción específica del proyecto?
@@ -99,10 +98,10 @@ RATIO es una **guía** que estructura la información configurable por el usuari
     │   └── No
     │       ├── ¿Define el resultado global esperado del proyecto?
     │       │   ├── Sí → F₅ (Objective)
-    │       │   └── No → F₆ (Knowledge policies)
+    │       │   └── No → F₆ (Source policies)
 ```
 
-**L₃ Style**
+**L₃**
 
 ```
 ¿Es una muestra concreta de output?
@@ -119,10 +118,10 @@ RATIO es una **guía** que estructura la información configurable por el usuari
     │       │       │   └── No → F₁₁ (Discourse rules)
 ```
 
-**L₅ Prompt**
+**L₅**
 
 ```
-¿Es un ejemplo de input-output para esta tarea?
+¿Es un ejemplo de output para esta tarea?
 ├── Sí → F₁₆ (Task examples)
 └── No
     ├── ¿Es una restricción puntual para este mensaje?
@@ -132,65 +131,3 @@ RATIO es una **guía** que estructura la información configurable por el usuari
     │       │   ├── Sí → F₁₃ (Task specification)
     │       │   └── No → F₁₄ (Scope)
 ```
-### L₁ User preferences
-
-Instrucciones globales que aplican a todas las conversaciones.
-
-**F₁ — Interlocutor profiles.** Información declarativa estable sobre el usuario (preferencias contextuales) y sobre la postura del modelo (preferencias conductuales).
-
-**F₂ — Epistemic policies.** Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre, así como los errores del usuario.
-
-**F₃ — Global constraints.** Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto.
-
-### L₂ Project instructions
-
-Instrucciones que aplican a todas las conversaciones dentro de un proyecto.
-
-**F₄ — Domain profile.** Identidad disciplinar del proyecto.
-
-**F₅ — Project Objective.** Resultado que el proyecto debe producir.
-
-**F₆ — Source policies.** Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto.
-
-**F₇ — Project constraints** *(opcional)***.** Restricciones persistentes dentro del proyecto que complementan F₃.
-
-
-### L₃ Style
-
-Reglas que regulan la forma lingüística del output agrupadas dentro de una unidad autónoma.
-
-**F₈ — Lexical-semantic rules.** Reglas sobre la selección y el uso de unidades léxicas.
-
-**F₉ — Morphosyntactic rules.** Reglas sobre la construcción de oraciones.
-
-**F₁₀ — Pragmatic-tonal rules.** Reglas sobre la actitud discursiva del modelo.
-
-**F₁₁ — Discourse rules.** Reglas sobre la cohesión y la coherencia a nivel supraoracional.
-
-**F₁₂ — Style examples.** Muestras de output que instancian simultáneamente F₈–F₁₁.
-
-
-### L₄ Skills
-
-Instrucciones procedurales, reutilizables entre proyectos y contingentes a un tipo de tarea que se activan por coincidencia semántica: 
-
-```
-skill-name/
-├── SKILL.md          # obligatorio
-├── scripts/          # opcional
-├── references/       # opcional
-└── assets/           # opcional
-```
-
-### L₅ Prompt
-
-Instrucciones efímeras que aplican a un único mensaje.
-
-**F₁₃ — Task specification.** Operación concreta que el modelo ejecuta en respuesta al mensaje.
-
-**F₁₄ — Task scope *(opcional)*.** Alcance temático de la tarea.
-
-**F₁₅ — Task constraints** *(opcional)***.** Restricciones efímeras que aplican exclusivamente al mensaje actual y que complementan F₃ y F₇.
-.
-
-**F₁₆ — Task examples** *(opcional)***.** Muestras de output que instancian todas las facetas. 
