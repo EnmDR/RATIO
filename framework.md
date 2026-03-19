@@ -4,6 +4,8 @@
 
 RATIO is an instructional design framework that organizes user-configurable instructions in claude.ai. It assigns each instruction to one of five layers—corresponding to the platform's five channels (user preferences, project instructions, style, skills, prompt)—and, within each layer, to a thematic facet that determines the type of content it admits.
 
+RATIO is a schema, not content. It defines the structure, assignment rules, and drafting principles for instructions, but contains no instructions itself. A concrete set of instructions assigned to facets for a specific user, project, or task is an **instantiation** of RATIO. The framework is stable across instantiations; the content of each facet varies.
+
 ## Motivation
 
 Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. All three conditions degrade model performance: duplication consumes context window without contributing new signal; misassignment prevents an instruction from activating when it should, or keeps it active when it should not; contradiction introduces ambiguity that the model resolves non-deterministically.
@@ -21,6 +23,8 @@ RATIO prevents these conditions through two mechanisms: a decision tree that ass
 
 **Facet.** A thematic category of instructions within a layer. Each facet has an obligation status (whether it requires content or may be left empty).
 
+**Instantiation.** A concrete set of instructions populating the facets of one or more layers for a specific user, project, or task. An instantiation is valid if every instruction satisfies the assignment trees and drafting principles defined below.
+
 **Precedence.** When instructions from different layers conflict, the instruction with narrower persistence prevails: a prompt instruction (L₅) overrides a project instruction (L₂), which overrides a style instruction (L₃), which overrides a user preference (L₁). L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior.
 
 ## Drafting principles
@@ -37,7 +41,7 @@ The linguistic form of instructions affects how the model interprets them. These
 
 **Format-content coherence.** The format in which instructions are written models the desired output format. If the desired output is prose, instructions are written in prose.
 
-**Calibrated intensity.** Emphatic language (capitalization, obligation adverbs) is reserved for instructions the model tends to ignore, not used as a default.
+**Calibrated intensity.** With frontier models, standard declarative instructions suffice. Emphatic language (capitalization, obligation adverbs) is reserved for instructions the model tends to ignore, not used as a default.
 
 ## Layer architecture
 
@@ -158,3 +162,23 @@ Is the instruction an output example for this task?
     │       │   ├── Yes → F₁₄
     │       │   └── No → F₁₅
 ```
+
+## Instantiation checklist
+
+Use this checklist when creating or auditing an instantiation. An instantiation is valid when every item returns yes.
+
+**Assignment.**
+1. Does every instruction resolve to exactly one layer through the layer assignment tree?
+2. Does every instruction resolve to exactly one facet through the corresponding facet assignment tree?
+3. Does every required facet in the active layers contain at least one instruction?
+
+**Drafting.**
+4. Does every sentence contain a single instruction? (Atomicity)
+5. Does every constraint use the form "Do Y instead of X," with negative form reserved for irreducible exclusions? (Positive framing)
+6. Would a reader without prior context interpret each instruction in exactly one way? (Operational specificity)
+7. Does each instruction appear in exactly one facet with no information duplicated from another instruction? (Non-redundancy)
+8. Is the format of the instructions consistent with the desired output format? (Format-content coherence)
+9. Is emphatic language absent except where the model demonstrably tends to ignore the instruction? (Calibrated intensity)
+
+**Integrity.**
+10. Do instructions across different layers avoid contradiction? Where conflict exists, is the precedence rule (narrower persistence prevails) satisfied by the intended behavior?
