@@ -1,4 +1,5 @@
 # RATIO (RATIOnal Architecture for Tailored Interaction and Output)
+### Specification of an instructional configuration schema for Claude in claude.ai
 
 ## Scope
 
@@ -8,9 +9,9 @@ RATIO is a schema, not content. It defines the structure, assignment rules, and 
 
 ## Motivation
 
-Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. All three conditions degrade model performance: duplication consumes context window without contributing new signal; misassignment prevents an instruction from activating when it should, or keeps it active when it should not; contradiction introduces ambiguity that the model resolves non-deterministically.
+Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. All three conditions degrade model performance: duplication consumes context window without contributing new signal; misassignment prevents an instruction from activating when it should, or keeps it active when it should not; accidental contradiction introduces ambiguity that the model resolves non-deterministically.
 
-RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions.
+RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions. RATIO distinguishes between accidental contradiction within a layer (a defect) and intentional overrides across layers (a design pattern made predictable by the platform's precedence behavior).
 
 ## Definitions
 
@@ -25,7 +26,7 @@ RATIO prevents these conditions through two mechanisms: a decision tree that ass
 
 **Instantiation.** A concrete set of instructions populating the facets of one or more layers for a specific user, project, or task. An instantiation is valid if every instruction satisfies the assignment trees and drafting principles defined below.
 
-**Precedence.** When instructions from different layers conflict, the instruction with narrower persistence prevails: a prompt instruction (L₅) overrides a project instruction (L₂), which overrides a style instruction (L₃), which overrides a user preference (L₁). L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior.
+**Precedence.** The platform resolves conflicts between layers by favoring the instruction with narrower persistence: L₅ overrides L₂, which overrides L₃, which overrides L₁. L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior. This resolution order is a platform behavior, not a RATIO rule. RATIO documents it so that the user can design intentional overrides across layers and predict their outcome.
 
 ## Drafting principles
 
@@ -181,4 +182,4 @@ Use this checklist when creating or auditing an instantiation. An instantiation 
 9. Is emphatic language absent except where the model demonstrably tends to ignore the instruction? (Calibrated intensity)
 
 **Integrity.**
-10. Do instructions across different layers avoid contradiction? Where conflict exists, is the precedence rule (narrower persistence prevails) satisfied by the intended behavior?
+10. Where instructions across different layers appear to conflict, is each conflict an intentional override whose resolution under the platform's precedence order produces the desired behavior?
