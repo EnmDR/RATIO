@@ -1,6 +1,14 @@
 # RATIO (RATIOnal Architecture for Tailored Interaction and Output)
 ### Specification of an instructional configuration schema for Claude in claude.ai
 
+| | |
+|---|---|
+| **Author** | Enmanuel Damas Reyes |
+| **Version** | 1.0 |
+| **Date** | 2026-03-19 |
+| **Status** | Frozen |
+| **Platform** | claude.ai (Anthropic) |
+
 ## Scope
 
 RATIO is an instructional design framework that organizes user-configurable instructions in claude.ai. It assigns each instruction to one of five layers—corresponding to the platform's five channels (user preferences, project instructions, style, skills, prompt)—and, within each layer, to a thematic facet that determines the type of content it admits.
