@@ -1,132 +1,160 @@
 # RATIO (RATIOnal Architecture for Tailored Interaction and Output)
 
-## Alcance 
+## Scope
 
-RATIO es un **framework** que estructura la información configurable por el usuario de Claude en claude.ai en cinco capas correspondientes a los cinco canales de la plataforma (user preferences, project instructions, style, skills, prompt), cada una con un catálogo de facetas que determina qué instrucciones admite.
+RATIO is an instructional design framework that organizes user-configurable instructions in claude.ai. It assigns each instruction to one of five layers—corresponding to the platform's five channels (user preferences, project instructions, style, skills, prompt)—and, within each layer, to a thematic facet that determines the type of content it admits.
 
-## Definiciones
+## Motivation
 
-**Capa.** Canal de la plataforma al que se asignan instrucciones. Cada capa tiene una persistencia (en qué conversaciones son efectivas las instrucciones) y una activación (bajo qué condición entran en el contexto de inferencia).
+Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. All three conditions degrade model performance: duplication consumes context window without contributing new signal; misassignment prevents an instruction from activating when it should, or keeps it active when it should not; contradiction introduces ambiguity that the model resolves non-deterministically.
 
-**Faceta.** Categoría temática de instrucciones dentro de una capa. Cada faceta tiene una obligatoriedad. Las instrucciones pueden tomar tres formas lingüísticas posibles: 
-- Declarativa: "X es Y".
-- Política: "Cuando X, haz Y" o "Haz X de manera Y".
-- Restricción: forma preferida "Haz Y en lugar de X". Forma negativa ("No hagas X") reservada para exclusiones que no admiten reformulación positiva.
+RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions.
 
-## Arquitectura de capas
+## Definitions
 
-### Tabla de capas
+**Instruction.** The minimal unit of information that governs model behavior. Each instruction is assigned to exactly one facet. Each instruction takes one of three linguistic forms:
+- Declarative: "X is Y."
+- Policy: "When X, do Y" or "Do X in manner Y."
+- Constraint: preferred form "Do Y instead of X." Negative form ("Do not do X") reserved for exclusions that cannot be reformulated positively.
 
-Fundamentada: la arquitectura de capas está determinada por la plataforma y no es modificable por el usuario.
-| Capa | Descripción | Persistencia | Activación |
-|------|-------------|-------------|------------|
-| L₁ o user preferences | Instrucciones que regulan el comportamiento base del modelo en toda interacción | Todas las conversaciones | Siempre activa |
-| L₂ o project instructions | Instrucciones que regulan la configuración específica de un proyecto | Conversaciones del proyecto | Siempre activa |
-| L₃ o style | Instrucciones que regulan la forma lingüística y pragmática del output | Conversaciones con estilo activo | Siempre activa |
-| L₄ o skills | Instrucciones que regulan procedimientos contingentes a un tipo de tarea específico | Todas las conversaciones | Condicionalmente activa (coincidencia semántica) |
-| L₅ o prompt | Instrucciones que regulan la ejecución de una tarea concreta en un único mensaje | Mensaje individual | Una inferencia |
+**Layer.** A platform channel to which instructions are assigned. Each layer has a persistence (which conversations the instructions are effective in) and an activation (under what condition they enter the inference context).
 
-### Asignación de facetas por capas
+**Facet.** A thematic category of instructions within a layer. Each facet has an obligation status (whether it requires content or may be left empty).
+
+**Precedence.** When instructions from different layers conflict, the instruction with narrower persistence prevails: a prompt instruction (L₅) overrides a project instruction (L₂), which overrides a style instruction (L₃), which overrides a user preference (L₁). L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior.
+
+## Drafting principles
+
+The linguistic form of instructions affects how the model interprets them. These principles govern instruction drafting across all layers.
+
+**Atomicity.** Each sentence contains a single instruction. Compound instructions are decomposed into independent sentences.
+
+**Positive framing.** Instructions describe desired behavior rather than prohibited behavior. The form "Do Y instead of X" is preferred over "Do not do X." The negative form is reserved for exclusions that cannot be reformulated positively.
+
+**Operational specificity.** Each instruction passes the unambiguous interpretation test: a reader without prior context would interpret it in exactly one way. Instructions tell the model what to do with information, not merely what information exists.
+
+**Non-redundancy.** Each instruction appears in exactly one facet. Information already implied by an existing instruction is not repeated as a separate instruction.
+
+**Format-content coherence.** The format in which instructions are written models the desired output format. If the desired output is prose, instructions are written in prose.
+
+**Calibrated intensity.** Emphatic language (capitalization, obligation adverbs) is reserved for instructions the model tends to ignore, not used as a default.
+
+## Layer architecture
+
+### Layer table
+
+Grounded: the layer architecture is determined by the platform and is not user-modifiable.
+
+| Layer | Description | Persistence | Activation |
+|-------|-------------|-------------|------------|
+| L₁ or user preferences | Instructions that govern the model's baseline behavior across all interactions | All conversations | Always active |
+| L₂ or project instructions | Instructions that govern the configuration of a specific project | Project conversations | Always active |
+| L₃ or style | Instructions that govern the linguistic and pragmatic form of the output | Conversations with active style | Always active |
+| L₄ or skills | Instructions that govern procedures contingent on a specific task type | All conversations | Conditionally active (semantic matching) |
+| L₅ or prompt | Instructions that govern the execution of a specific task in a single message | Single message | One inference |
+
+### Assigning instructions to layers
 
 ```
-¿Cambia entre mensajes?
-├── Sí → L₅
+Does the instruction change between messages?
+├── Yes → L₅
 └── No
-    ├── ¿Cambia entre proyectos?
-    │   ├── Sí → L₂
+    ├── Does it change between projects?
+    │   ├── Yes → L₂
     │   └── No
-    │       ├── ¿Es un procedimiento contingente a un tipo de tarea? 
-    │       │   ├── Sí → L₄
+    │       ├── Is it a procedure contingent on a specific task type?
+    │       │   ├── Yes → L₄
     │       │   └── No
-    │       │       ├── ¿Regula la forma lingüística del output?
-    │       │       │   ├── Sí → L₃
+    │       │       ├── Does it govern the linguistic form of the output?
+    │       │       │   ├── Yes → L₃
     │       │       │   └── No → L₁
 ```
 
+## Facet architecture
 
-## Arquitectura de facetas
+### Facet table
 
-### Tabla de facetas
+Arbitrary: the facet taxonomy is a user design decision and admits reorganization.
 
-Arbitraria: la taxonomía de facetas es una decisión de diseño del usuario y admite reorganización.
-| Faceta | Descripción | Capa | Obligatoriedad |
-|------|-------------|------|----------------|
-| F₁ o interlocutor profiles | Instrucciones declarativas sobre el perfil del usuario (preferencias contextuales) y la postura del modelo (preferencias conductuales) | L₁ | Obligatoria |
-| F₂ o epistemic policies | Políticas que regulan cómo el modelo gestiona la evidencia, la incertidumbre, así como los errores del usuario | L₁ | Obligatoria |
-| F₃ o global constraints | Restricciones permanentes sobre el output que aplican a toda conversación y todo proyecto | L₁ | Opcional |
-| F₄ o domain profile | Instrucciones que definen la identidad disciplinar del proyecto | L₂ | Obligatoria |
-| F₅ o project objective | Instrucciones que definen el resultado global que el proyecto debe producir | L₂ | Obligatoria |
-| F₆ o source policies | Políticas de gestión de las fuentes de conocimiento disponibles en el proyecto | L₂ | Obligatoria |
-| F₇ o project constraints | Restricciones persistentes dentro del proyecto que complementan F₃ | L₂ | Opcional |
-| F₈ o lexical-semantic instructions | Instrucciones sobre la selección y el uso de unidades léxicas | L₃ | Obligatoria |
-| F₉ o morphosyntactic instructions | Instrucciones sobre la construcción de oraciones | L₃ | Obligatoria |
-| F₁₀ o pragmatic-tonal instructions | Instrucciones sobre la actitud discursiva del modelo | L₃ | Obligatoria |
-| F₁₁ o discourse instructions | Instrucciones sobre la cohesión y la coherencia a nivel supraoracional | L₃ | Obligatoria |
-| F₁₂ o style examples | Muestras de output que instancian simultáneamente F₈–F₁₁ | L₃ | Obligatoria |
-| FS₁ o SKILL.md | Documento principal que define el procedimiento, las dependencias y las restricciones del skill| L₄ | Obligatoria |
-| FS₂ o scripts | Scripts ejecutables que automatizan operaciones definidas en FS₁| L₄ | Opcional |
-| FS₃ o references | Materiales de consulta que el skill necesita para ejecutarse | L₄ | Opcional |
-| FS₄ o assets | Ficheros estáticos que el skill consume o produce | L₄ | Opcional |
-| F₁₃ o task specification | Instrucciones que definen la operación concreta que el modelo ejecuta en respuesta al mensaje | L₅ | Obligatoria |
-| F₁₄ o task scope | Instrucciones que delimitan el alcance temático de la tarea | L₅ | Opcional |
-| F₁₅ o task constraints | Restricciones efímeras que aplican exclusivamente al mensaje actual y que complementan F₃ y F₇ | L₅ | Opcional |
-| F₁₆ o task examples | Muestras de output | L₅ | Opcional |
+| Facet | Description | Layer | Obligation |
+|-------|-------------|-------|------------|
+| F₁ or interlocutor profiles | Declarations about the user's profile and the model's stance toward the user | L₁ | Required |
+| F₂ or epistemic policies | Policies governing how the model manages evidence, uncertainty, and user errors | L₁ | Required |
+| F₃ or global constraints | Persistent constraints on output that apply across all conversations and projects | L₁ | Optional |
+| F₄ or domain profile | Declarations about the project's disciplinary domain, its conventions, and the model's role within it | L₂ | Required |
+| F₅ or project objective | Instructions defining the global outcome the project must produce | L₂ | Required |
+| F₆ or source policies | Policies governing the management of knowledge sources available to the project | L₂ | Required |
+| F₇ or project constraints | Persistent constraints within the project that supplement F₃ | L₂ | Optional |
+| F₈ or lexical-semantic instructions | Instructions governing word selection and usage | L₃ | Required |
+| F₉ or morphosyntactic instructions | Instructions governing sentence construction | L₃ | Required |
+| F₁₀ or pragmatic-tonal instructions | Instructions governing the model's discursive attitude | L₃ | Required |
+| F₁₁ or discourse instructions | Instructions governing cohesion and coherence at the suprasentential level | L₃ | Required |
+| F₁₂ or style examples | Output samples that simultaneously instantiate F₈–F₁₁ | L₃ | Required |
+| FS₁ or SKILL.md | Main document defining the skill's procedure, dependencies, and constraints | L₄ | Required |
+| FS₂ or scripts | Executable scripts that automate operations defined in FS₁ | L₄ | Optional |
+| FS₃ or references | Reference materials the skill needs for execution | L₄ | Optional |
+| FS₄ or assets | Static files the skill consumes or produces | L₄ | Optional |
+| F₁₃ or task specification | Instructions defining the specific operation the model executes in response to the message | L₅ | Required |
+| F₁₄ or task scope | Instructions delimiting the topical scope of the task | L₅ | Optional |
+| F₁₅ or task constraints | Ephemeral constraints that apply exclusively to the current message and supplement F₃ and F₇ | L₅ | Optional |
+| F₁₆ or task examples | Output samples for the task | L₅ | Optional |
 
-### Asignación de instrucciones por facetas 
+L₄ facets use the FS prefix (skill facet) because their physical substrate is files in a directory, not text in a configuration field. This substrate difference determines structural differences: FS₁ is a markdown document, FS₂ are executable scripts, FS₃ and FS₄ are data files. Facets in all other layers are plain text injected into the inference context.
 
-**L₁**
+### Assigning instructions to facets
+
+**L₁ or user preferences**
 
 ```
-¿Define quién es el usuario o cómo se posiciona el modelo ante él?
-├── Sí → F₁ 
+Does the instruction define who the user is or how the model positions itself toward the user?
+├── Yes → F₁
 └── No
-    ├── ¿Regula cómo el modelo trata la evidencia, la incertidumbre o el error?
-    │   ├── Sí → F₂ 
-    │   └── No → F₃ 
+    ├── Does it govern how the model treats evidence, uncertainty, or error?
+    │   ├── Yes → F₂
+    │   └── No → F₃
 ```
 
-**L₂ o project instructions**
+**L₂ or project instructions**
 
 ```
-¿Regula la gestión de fuentes de conocimiento del proyecto?
-├── Sí → F₆
+Does the instruction govern the management of the project's knowledge sources?
+├── Yes → F₆
 └── No
-    ├── ¿Define el resultado global esperado del proyecto?
-    │   ├── Sí → F₅
+    ├── Does it define the expected global outcome of the project?
+    │   ├── Yes → F₅
     │   └── No
-    │       ├── ¿Define el dominio, sus convenciones o el rol del modelo?
-    │       │   ├── Sí → F₄
+    │       ├── Does it define the domain, its conventions, or the model's role?
+    │       │   ├── Yes → F₄
     │       │   └── No → F₇
 ```
 
-**L₃**
+**L₃ or style**
 
 ```
-¿Es una muestra concreta de output?
-├── Sí → F₁₂ 
+Is the instruction a concrete output sample?
+├── Yes → F₁₂
 └── No
-    ├── ¿Regula qué palabras se usan o se evitan?
-    │   ├── Sí → F₈ 
+    ├── Does it govern which words are used or avoided?
+    │   ├── Yes → F₈
     │   └── No
-    │       ├── ¿Regula cómo se construyen las oraciones?
-    │       │   ├── Sí → F₉
+    │       ├── Does it govern how sentences are constructed?
+    │       │   ├── Yes → F₉
     │       │   └── No
-    │       │       ├── ¿Regula la actitud discursiva (formalidad, tono, cortesía)?
-    │       │       │   ├── Sí → F₁₀ 
-    │       │       │   └── No → F₁₁ 
+    │       │       ├── Does it govern discursive attitude (formality, tone, politeness)?
+    │       │       │   ├── Yes → F₁₀
+    │       │       │   └── No → F₁₁
 ```
 
-**L₅**
+**L₅ or prompt**
 
 ```
-¿Es un ejemplo de output para esta tarea?
-├── Sí → F₁₆
+Is the instruction an output example for this task?
+├── Yes → F₁₆
 └── No
-    ├── ¿Define qué acción ejecuta el modelo?
-    │   ├── Sí → F₁₃
+    ├── Does it define what operation the model executes?
+    │   ├── Yes → F₁₃
     │   └── No
-    │       ├── ¿Delimita el alcance temático de la tarea?
-    │       │   ├── Sí → F₁₄
+    │       ├── Does it delimit the topical scope of the task?
+    │       │   ├── Yes → F₁₄
     │       │   └── No → F₁₅
-
 ```
