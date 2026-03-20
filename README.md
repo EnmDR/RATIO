@@ -17,9 +17,9 @@ RATIO is a schema, not content. It defines the structure, assignment rules, and 
 
 ## Motivation
 
-Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. All three conditions degrade model performance: duplication consumes context window without contributing new signal; misassignment prevents an instruction from activating when it should, or keeps it active when it should not; accidental contradiction introduces ambiguity that the model resolves non-deterministically.
+Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. Duplication consumes context window without contributing new signal. Misassignment prevents an instruction from activating when it should, or keeps it active when it should not. Accidental contradiction introduces ambiguity that the model resolves non-deterministically
 
-RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions. RATIO distinguishes between accidental contradiction within a layer (a defect) and intentional overrides across layers (a design pattern made predictable by the platform's precedence behavior).
+RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions. This makes it possible to distinguish between accidental contradiction within a layer (a defect) and intentional overrides across layers (a design pattern made predictable by the platform's precedence behavior).
 
 ## Definitions
 
