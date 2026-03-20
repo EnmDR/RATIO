@@ -1,5 +1,5 @@
-# RATIO (RATIOnal Architecture for Tailored Interaction and Output)
-### Specification of an instructional configuration schema for Claude in claude.ai
+# RATIO
+## Specification of an instructional configuration schema for Claude in claude.ai 
 
 | | |
 |---|---|
