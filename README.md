@@ -102,7 +102,7 @@ Arbitrary: the facet taxonomy is a user design decision and admits reorganizatio
 | F₄ or domain profile | Declarations about the project's disciplinary domain, its conventions, and the model's role within it | L₂ | Required |
 | F₅ or project objective | Instructions defining the global outcome the project must produce | L₂ | Required |
 | F₆ or source policies | Policies governing the management of knowledge sources available to the project | L₂ | Required |
-| F₇ or project constraints | Persistent constraints within the project that supplement F₃ | L₂ | Optional |
+| F₇ or project constraints | Persistent constraints on output within the project that supplement F₃ | L₂ | Optional |
 | F₈ or lexical-semantic instructions | Instructions governing word selection and usage | L₃ | Required |
 | F₉ or morphosyntactic instructions | Instructions governing sentence construction | L₃ | Required |
 | F₁₀ or pragmatic-tonal instructions | Instructions governing the model's discursive attitude | L₃ | Required |
@@ -182,13 +182,11 @@ Is the instruction an output example for this task?
 Use this checklist when creating or auditing an instantiation. An instantiation is valid when every item returns yes.
 
 **Assignment.**
-
 1. Does every instruction resolve to exactly one layer through the layer assignment tree?
 2. Does every instruction resolve to exactly one facet through the corresponding facet assignment tree, or, for L₄, through file type?
 3. Does every required facet in the active layers contain at least one instruction?
 
 **Drafting.**
-
 4. Does every sentence contain a single instruction? (Atomicity)
 5. Does every constraint use the form "Do Y instead of X," with negative form reserved for irreducible exclusions? (Positive framing)
 6. Would a reader without prior context interpret each instruction in exactly one way? (Operational specificity)
@@ -197,6 +195,4 @@ Use this checklist when creating or auditing an instantiation. An instantiation 
 9. Is emphatic language absent except where the model demonstrably tends to ignore the instruction? (Calibrated intensity)
 
 **Integrity.**
-
 10. Where instructions across different layers appear to conflict, is each conflict an intentional override whose resolution under the platform's precedence order produces the desired behavior?
-
