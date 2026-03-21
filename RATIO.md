@@ -28,7 +28,7 @@ RATIO prevents these conditions through two mechanisms: a decision tree that ass
 
 **Instruction.** The minimal unit of information that governs model behavior. Each instruction is assigned to exactly one facet. Each instruction takes one of three linguistic forms:
 - Declarative: "X is Y."
-- Policy: "When X, do Y" or "Do X in manner Y."
+- Policy: "Do X", "When X, do Y" or "Do X in manner Y."
 - Constraint: preferred form "Do Y instead of X." Negative form ("Do not do X") reserved for exclusions that cannot be reformulated positively.
 
 **Layer.** A platform channel to which instructions are assigned. Each layer has a persistence (which conversations the instructions are effective in) and an activation (under what condition they enter the inference context).
