@@ -187,8 +187,8 @@ A bordered text block used for remarks, reminders, or emphasized content.
 | Typography | Base |
 | Left border | Yes (color: primary) |
 | Right border | Yes (color: primary) |
-| Top border | None |
-| Bottom border | None |
+| Top border | Yes (color: primary) |
+| Bottom border | Yes (color: primary) |
 | Space before block | 6 pt |
 | Space after block | 6 pt |
 
