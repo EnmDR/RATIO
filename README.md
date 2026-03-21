@@ -1,11 +1,12 @@
 # RATIO
-## Specification of an instructional configuration schema for Claude in claude.ai 
+
+*Specification of an instructional configuration schema for Claude in claude.ai*
 
 | | |
 |---|---|
 | **Author** | Enmanuel Damas Reyes |
 | **Version** | 1.0 |
-| **Date** | 2026-03-19 |
+| **Date** | 2026-03-21 |
 | **Status** | Frozen |
 | **Platform** | claude.ai (Anthropic) |
 
@@ -15,9 +16,11 @@ RATIO is an instructional design framework that organizes user-configurable inst
 
 RATIO is a schema, not content. It defines the structure, assignment rules, and drafting principles for instructions, but contains no instructions itself. A concrete set of instructions assigned to facets for a specific user, project, or task is an **instantiation** of RATIO. The framework is stable across instantiations; the content of each facet varies.
 
+RATIO governs two things: where instructions are assigned (layers and facets) and how instructions are drafted (drafting principles). The drafting principles apply to instructions in all layers, including those within skill files. RATIO does not govern platform behavior (how the model resolves conflicts, how skills are triggered, how context is managed), the structural conventions of platform artifacts (the format of skill frontmatter, file organization within skill directories, the format of style presets), or the content of any particular instantiation.
+
 ## Motivation
 
-Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. Duplication consumes context window without contributing new signal. Misassignment prevents an instruction from activating when it should, or keeps it active when it should not. Accidental contradiction introduces ambiguity that the model resolves non-deterministically
+Without an explicit architecture, instructions tend to be duplicated across channels, assigned to the wrong channel, or contradicted between layers. Duplication consumes context window without contributing new signal. Misassignment prevents an instruction from activating when it should, or keeps it active when it should not. Accidental contradiction introduces ambiguity that the model resolves non-deterministically.
 
 RATIO prevents these conditions through two mechanisms: a decision tree that assigns each instruction to exactly one layer and exactly one facet, and a set of drafting principles that govern the linguistic form of instructions. This makes it possible to distinguish between accidental contradiction within a layer (a defect) and intentional overrides across layers (a design pattern made predictable by the platform's precedence behavior).
 
@@ -33,8 +36,6 @@ RATIO prevents these conditions through two mechanisms: a decision tree that ass
 **Facet.** A thematic category of instructions within a layer. Each facet has an obligation status (whether it requires content or may be left empty).
 
 **Instantiation.** A concrete set of instructions populating the facets of one or more layers for a specific user, project, or task. An instantiation is valid if every instruction satisfies the assignment trees and drafting principles defined below.
-
-**Precedence.** The platform resolves conflicts between layers by favoring the instruction with narrower persistence: L₅ overrides L₂, which overrides L₃, which overrides L₁. L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior. This resolution order is a platform behavior, not a RATIO rule. RATIO documents it so that the user can design intentional overrides across layers and predict their outcome.
 
 ## Drafting principles
 
@@ -65,6 +66,10 @@ Grounded: the layer architecture is determined by the platform and is not user-m
 | L₃ or style | Instructions that govern the linguistic and pragmatic form of the output | Conversations with active style | Always active |
 | L₄ or skills | Instructions that govern procedures contingent on a specific task type | All conversations | Conditionally active (semantic matching) |
 | L₅ or prompt | Instructions that govern the execution of a specific task in a single message | Single message | One inference |
+
+### Precedence
+
+The platform resolves conflicts between layers by favoring the instruction with narrower persistence: L₅ overrides L₂, which overrides L₃, which overrides L₁. L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior. This resolution order is a platform behavior, not a RATIO rule. RATIO documents it here so that the user can design intentional overrides across layers and predict their outcome.
 
 ### Assigning instructions to layers
 
@@ -112,7 +117,7 @@ Arbitrary: the facet taxonomy is a user design decision and admits reorganizatio
 | F₁₅ or task constraints | Ephemeral constraints that apply exclusively to the current message and supplement F₃ and F₇ | L₅ | Optional |
 | F₁₆ or task examples | Output samples for the task | L₅ | Optional |
 
-L₄ facets use the FS prefix (skill facet) because their physical substrate is files in a directory, not text in a configuration field. This substrate difference determines structural differences: FS₁ is a markdown document, FS₂ are executable scripts, FS₃ and FS₄ are data files. Facets in all other layers are plain text injected into the inference context.
+L₄ facets use the FS prefix (skill facet) because their physical substrate is files in a directory, not text in a configuration field. This substrate difference determines structural differences: FS₁ is a markdown document, FS₂ are executable scripts, FS₃ and FS₄ are data files. Facets in all other layers are plain text injected into the inference context. L₄ facets are assigned by file type rather than by decision tree, because each facet corresponds to a distinct file category within the skill directory. The internal structure of each file is governed by the platform's skill specification, not by RATIO.
 
 ### Assigning instructions to facets
 
@@ -178,7 +183,7 @@ Use this checklist when creating or auditing an instantiation. An instantiation 
 
 **Assignment.**
 1. Does every instruction resolve to exactly one layer through the layer assignment tree?
-2. Does every instruction resolve to exactly one facet through the corresponding facet assignment tree?
+2. Does every instruction resolve to exactly one facet through the corresponding facet assignment tree, or, for L₄, through file type?
 3. Does every required facet in the active layers contain at least one instruction?
 
 **Drafting.**
