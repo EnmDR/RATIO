@@ -352,7 +352,3 @@ Abbreviations carry a terminal period. The abbreviation period is absorbed by th
 ## Numerical conventions
 
 The decimal separator is the period. The thousands separator is the thin space. Numerals are used for experimental data, measurements, values with units, and quantities above ten. Words are used for general quantities of ten or below, except at the start of a sentence where words are always used regardless of magnitude.
-
-## Citation
-
-Vancouver style.
