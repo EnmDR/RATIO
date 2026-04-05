@@ -14,7 +14,7 @@
 
 This specification defines two things: the visual properties of document elements (how they look) and the usage conventions that govern when and how each element is used (how content is organized into elements). Together, they constitute the complete presentational layer of an academic document.
 
-This specification is a schema, not content. It defines property values and usage rules for every element type, but contains no document content. A concrete document that applies these values and rules is an **instantiation** of this specification. This specification does not govern linguistic style (sentence construction, tone, word choice).
+This specification is a schema, not content. It defines property values and usage rules for every element type, but contains no document content. A concrete document that applies these values and rules is an **instantiation** of this specification. This specification does not govern linguistic style.
 
 ## Definitions
 
