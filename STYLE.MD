@@ -1,6 +1,6 @@
 # Academic Document Style Specification
 
-*Specification of a visual and structural style schema for academic documents in Microsoft Word*
+*Specification of a visual style schema for academic documents in Microsoft Word*
 
 | | |
 |---|---|
@@ -12,9 +12,9 @@
 
 ## Scope
 
-This specification defines two things: the visual properties of document elements (how they look) and the usage conventions that govern when and how each element is used (how content is organized into elements). Together, they constitute the complete presentational layer of an academic document.
+This specification defines the visual properties of document elements: the typographic, chromatic, and spatial values that determine how each element looks. Together, they constitute the complete presentational layer of an academic document.
 
-This specification is a schema, not content. It defines property values and usage rules for every element type, but contains no document content. A concrete document that applies these values and rules is an **instantiation** of this specification. This specification does not govern linguistic style.
+This specification is a schema, not content. It defines property values for every element type, but contains no document content. A concrete document that applies these values is an **instantiation** of this specification. This specification does not govern linguistic style or usage conventions.
 
 ## Definitions
 
@@ -24,13 +24,9 @@ This specification is a schema, not content. It defines property values and usag
 
 **Context-only property.** A property that exists only in specific element contexts (e.g., vertical alignment in table cells, marker format in lists). Context-only properties have no base value and must always be declared explicitly.
 
-**Instantiation.** A concrete document that applies the property values and usage rules defined in this specification. An instantiation is valid if every element conforms to the visual properties in Part I and the usage conventions in Part II.
+**Instantiation.** A concrete document that applies the property values defined in this specification. An instantiation is valid if every element conforms to the visual properties defined herein.
 
 **Institutional typography.** Typography mandated by the university's visual identity. The font, weight, and size may vary across institutions. This specification references it by role, not by value. The current institutional font is Vitor.
-
----
-
-# Part I — Visual properties
 
 ## Page layout
 
@@ -284,71 +280,3 @@ Separate base style. Does not inherit from the base text style.
 | Space before | 6 pt |
 | Space after | 6 pt |
 | Indent | None |
-
----
-
-# Part II — Usage conventions
-
-## Headings
-
-Three heading levels below the document subtitle: heading 1 (main section), heading 2 (subdivision), heading 3 (specific unit). If complexity suggests a fourth level, it is integrated through prose within heading 3.
-
-## Paragraphs
-
-The paragraph is the default format. Each paragraph develops a single nuclear idea. Typical length is 2–5 sentences: one nuclear sentence followed by 1–4 factual development sentences.
-
-## Lists
-
-### Unordered lists
-
-Unordered lists are used for sets of more than three discrete items without strict precedence that belong to the same conceptual level.
-
-### Ordered lists
-
-Ordered lists are used for sets of more than three items with strict precedence (temporal, causal, logical, procedural, or hierarchical).
-
-### Inline enumerations
-
-Inline enumerations are used for sets of two to four items with or without strict precedence.
-
-### When not to use lists
-
-Lists are not used when the relationship between items is what matters rather than the items themselves. If the content requires argumentative connection, causal explanation, or logical progression between elements, prose is used instead.
-
-## Tables
-
-Tables are used for sets of items classified simultaneously along two or more orthogonal dimensions. If the information has only one dimension, a list is used instead.
-
-## Figures
-
-Figures are used for structural, spatial, temporal, or causal relationships whose specification in prose would compromise intelligibility. Every figure carries a factual description that identifies what it shows; this description is adjacent text, not a formal Word caption. Every figure is referenced in the surrounding text. A figure without a text reference is not included.
-
-## Scientific notation
-
-Inline expressions (integrated in text) use Unicode. Block expressions use LaTeX. The criterion is syntactic: if the expression functions as an element within a sentence, it is inline (Unicode); if it constitutes an independent statement outside the textual flow, it is block (LaTeX).
-
-## Typographic styles
-
-Bold is used for key terms at first defining occurrence in the document, and in lists for the key term and the colon that follows it. After first occurrence, no typographic emphasis is applied.
-
-Italic is used for unadapted foreign-language terms, non-hispanicized Latin expressions, binomial names of microorganisms, gene symbols (following the official nomenclature of the organism), titles of works, and metalinguistic uses. Protein symbols are not italicized — only gene symbols are.
-
-Underline is not used. Strikethrough is not used.
-
-Acronyms carry no special formatting beyond parentheses at first occurrence.
-
-## Typographic signs
-
-The hyphen (-) is used for lexical composition. The en dash (–) is used for numerical and positional ranges. The em dash (—) is not used; asides are resolved with commas or parentheses.
-
-Double quotation marks ("") are the primary delimiter, following international biomedical convention rather than the RAE preference for angular quotation marks (« »). Single quotation marks ('') are the secondary delimiter. Parentheses are used for asides, complementary information, and acronyms or symbols at first occurrence. Brackets are used for interventions within quotations and clarifications within parentheses.
-
-## Abbreviated forms
-
-The full form is written at first occurrence followed by the abbreviated form in parentheses. From that point on, only the abbreviated form is used.
-
-Abbreviations carry a terminal period. The abbreviation period is absorbed by the sentence-final period (only one period is written). It is not absorbed by other punctuation marks (colon, semicolon, comma).
-
-## Numerical conventions
-
-The decimal separator is the period. The thousands separator is the thin space. Numerals are used for experimental data, measurements, values with units, and quantities above ten. Words are used for general quantities of ten or below, except at the start of a sentence where words are always used regardless of magnitude.
