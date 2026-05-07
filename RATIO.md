@@ -6,7 +6,7 @@
 |---|---|
 | **Author** | Enmanuel Damas Reyes |
 | **Version** | 2.0 |
-| **Date** | 2026-04-15 |
+| **Date** | 2026-05-07 |
 | **Status** | Draft |
 | **Platform** | claude.ai (Anthropic) |
 | **Supersedes** | v1.0 (2026-03-21) |
