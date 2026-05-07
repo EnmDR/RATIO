@@ -44,21 +44,21 @@ An instruction may include a **traceability annotation** indicating related face
 
 ## Drafting principles
 
-The linguistic form of instructions affects how the model interprets them. These principles govern instruction drafting across all layers. Each principle is annotated with its evidential basis to allow the user to prioritize compliance effort.
+The linguistic form of instructions affects how the model interprets them. These principles govern instruction drafting across all layers.
 
-**Atomicity.** Each sentence contains a single instruction. Compound instructions are decomposed into independent sentences. Evidential basis: design heuristic, indirectly supported by the instruction-following literature. Known trade-off: decomposition increases instruction count, which can degrade compliance when instructional load is high (Yang et al., 2025). Apply atomicity to improve clarity, but monitor total instructional load.
+**Atomicity.** Each sentence contains a single instruction. Compound instructions are decomposed into independent sentences.
 
-**Positive framing.** Instructions describe desired behavior rather than prohibited behavior. The form "Do Y instead of X" is preferred over "Do not do X." The negative form is reserved for exclusions that cannot be reformulated positively. Evidential basis: practitioner convention documented in platform guidelines. No controlled quantitative comparison against negative framing in frontier models has been published as of this version.
+**Positive framing.** Instructions describe desired behavior rather than prohibited behavior. The form "Do Y instead of X" is preferred over "Do not do X." The negative form is reserved for exclusions that cannot be reformulated positively. 
 
-**Operational specificity.** Each instruction passes the unambiguous interpretation test: a reader without prior context would interpret it in exactly one way. Instructions tell the model what to do with information, not merely what information exists. Evidential basis: strong empirical support. Underspecified prompts are approximately twice as likely to regress across model or prompt changes, with accuracy drops exceeding 20% (Yang et al., 2025).
+**Operational specificity.** Each instruction passes the unambiguous interpretation test: a reader without prior context would interpret it in exactly one way. Instructions tell the model what to do with information, not merely what information exists. 
 
-**Non-redundancy.** Each instruction appears in exactly one facet. Information already implied by an existing instruction is not repeated as a separate instruction. Where an instruction has dependencies on content in other facets, a traceability annotation is used instead of duplication. Evidential basis: design principle derived from context-window efficiency. Consistent with the promptware engineering principle that prompts should be modular and free of unnecessary repetition (Chen et al., 2025).
+**Non-redundancy.** Each instruction appears in exactly one facet. Information already implied by an existing instruction is not repeated as a separate instruction. Where an instruction has dependencies on content in other facets, a traceability annotation is used instead of duplication. 
 
-**Format-content coherence.** The format in which instructions are written models the desired output format. If the desired output is prose, instructions are written in prose. Evidential basis: practitioner heuristic. Supported by the general finding that LLMs are sensitive to formatting cues in prompts (He et al., 2024).
+**Format-content coherence.** The format in which instructions are written models the desired output format. If the desired output is prose, instructions are written in prose. 
 
-**Calibrated intensity.** With frontier models, standard declarative instructions suffice. Emphatic language (capitalization, obligation adverbs) is reserved for instructions the model demonstrably tends to ignore, not used as a default. Determining which instructions require emphasis is an empirical question that must be resolved per instantiation through testing. Evidential basis: conceptual support in the promptware literature, which notes that LLMs exhibit human-like interpretive behaviors where rhetorical intensity has non-trivial effects (Chen et al., 2025). Requires empirical calibration per instantiation.
+**Calibrated intensity.** With frontier models, standard declarative instructions suffice. Emphatic language (capitalization, obligation adverbs) is reserved for instructions the model demonstrably tends to ignore, not used as a default. Determining which instructions require emphasis is an empirical question that must be resolved per instantiation through testing. 
 
-**Instructional parsimony.** The number of instructions active in a single inference should be the minimum necessary to produce the desired behavior. Instructions that merely restate the model's reliable default behavior consume instructional budget without benefit and may degrade compliance with other instructions. Before adding an instruction, verify that the model's default behavior in the relevant dimension is inadequate. Evidential basis: strong empirical support. LLM compliance with individual instructions drops significantly as the total number of simultaneous instructions increases, from approximately 99% with individual instructions to approximately 85% with 19 simultaneous instructions, with some individual requirements suffering drops exceeding 60% due to interference even without semantic conflict (Yang et al., 2025).
+**Instructional parsimony.** The number of instructions active in a single inference should be the minimum necessary to produce the desired behavior. Instructions that merely restate the model's reliable default behavior consume instructional budget without benefit and may degrade compliance with other instructions. Before adding an instruction, verify that the model's default behavior in the relevant dimension is inadequate. 
 
 ## Layer architecture
 
@@ -76,7 +76,7 @@ Grounded: the layer architecture is determined by the platform and is not user-m
 
 ### Precedence
 
-The platform resolves conflicts between layers by generally favoring the instruction with narrower persistence: L₅ overrides L₂, which overrides L₃, which overrides L₁. L₄ does not generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior. This resolution order is a platform behavior, not a RATIO rule.
+The platform resolves conflicts between layers by generally favoring the instruction with narrower persistence: L₅ overrides L₂, which overrides L₃, which overrides L₁. L₄ does not exactly generate precedence conflicts because it activates conditionally and operates on task procedures rather than general behavior. This resolution order is a platform behavior, not a RATIO rule.
 
 However, the reliability of this resolution depends on the type of conflict involved. Not all conflicts between layers are resolved with equal predictability.
 
@@ -88,7 +88,7 @@ However, the reliability of this resolution depends on the type of conflict invo
 
 Intentional overrides across layers should be designed using constraint conflicts, where the resolution is predictable. Designing overrides that depend on orientation conflict resolution is unreliable and should be avoided.
 
-The empirical literature indicates that instruction hierarchy compliance is imperfect even in frontier models and may vary across model updates (Wallace et al., 2024; Zheng et al., 2026). The precedence order described here represents the platform's intended behavior, not a guarantee of deterministic resolution. Instantiations that depend critically on cross-layer overrides should include regression tests (see instantiation checklist) to verify that the intended resolution holds.
+The empirical literature indicates that instruction hierarchy compliance is imperfect even in frontier models and may vary across model updates. The precedence order described here represents the platform's intended behavior, not a guarantee of deterministic resolution. Instantiations that depend critically on cross-layer overrides should include regression tests (see instantiation checklist) to verify that the intended resolution holds.
 
 ### Assigning instructions to layers
 
@@ -218,14 +218,14 @@ When the instructional load cannot be reduced further without sacrificing necess
 
 Use this checklist when creating or auditing an instantiation. An instantiation is valid when every applicable item returns yes.
 
-**Assignment.**
+**Assignment**
 
 1. Does every instruction resolve to exactly one layer through the layer assignment tree?
 2. Does every instruction resolve to exactly one facet through the corresponding facet assignment tree, or, for L₄, through file type?
 3. Does every facet assessed as Required in the instantiation contain at least one instruction?
 4. Has the obligation status of each facet been assessed for this specific instantiation, or have the default values been adopted with justification?
 
-**Drafting.**
+**Drafting**
 
 5. Does every sentence contain a single instruction? (Atomicity)
 6. Does every constraint use the form "Do Y instead of X," with negative form reserved for irreducible exclusions? (Positive framing)
@@ -236,50 +236,17 @@ Use this checklist when creating or auditing an instantiation. An instantiation 
 11. Is emphatic language absent except where the model demonstrably tends to ignore the instruction? (Calibrated intensity)
 12. Has each instruction been verified as necessary, i.e., the model's default behavior in that dimension is inadequate? (Instructional parsimony)
 
-**Load.**
+**Load**
 
 13. Has the instructional load for a typical inference been estimated?
 14. If the load exceeds approximately 20 simultaneous instructions, have low-priority instructions been removed, consolidated, or moved to L₅?
 
-**Integrity.**
+**Integrity**
 
 15. Where instructions across different layers appear to conflict, is each conflict a constraint conflict (quantifiable, mutually exclusive restrictions on the same dimension) whose resolution under the platform's precedence order produces the desired behavior?
 16. Are there any orientation conflicts (qualitative directives pulling in opposing directions) between layers? If so, have they been resolved by rewriting the instructions to eliminate the ambiguity rather than relying on precedence?
 
-**Maintenance.**
+**Maintenance**
 
 17. Have 3–5 reference outputs been defined that capture the expected behavior of the instantiation for use as regression tests after model updates?
 18. Is a change log maintained for the instantiation that documents what instructions were modified, when, and why?
-
-## Changelog
-
-### v2.0 (2026-04-15)
-
-Changes from v1.0, motivated by alignment with recent empirical literature on instruction hierarchy (Wallace et al., 2024; Zheng et al., 2026), prompt underspecification (Yang et al., 2025), and promptware engineering (Chen et al., 2025).
-
-1. Added **instructional parsimony** as a drafting principle, addressing the empirically documented trade-off between instruction granularity and compliance degradation under high instructional load.
-2. Reformulated the **precedence** section to distinguish between constraint conflicts (predictable resolution), orientation conflicts (unpredictable resolution), and cross-dimensional interactions (compositional, not conflictive). Added a note on the empirical instability of hierarchy compliance.
-3. Replaced the binary obligation status (Required/Optional) with a **three-level assessment** (Required/Recommended/Optional) that depends on the instantiation rather than being fixed by the schema. This supports intentional underspecification as a valid design pattern.
-4. Added **instructional load assessment** section with heuristics for estimating and managing the total number of simultaneous instructions.
-5. Added **traceability annotations** to the definition of Instruction, allowing cross-facet dependencies to be documented without violating non-redundancy.
-6. Added **evidential basis annotations** to each drafting principle, distinguishing between empirically supported principles and practitioner heuristics.
-7. Added **maintenance items** to the instantiation checklist: regression tests and change log.
-8. Expanded the instantiation checklist from 10 to 18 items to cover the new dimensions.
-
-### v1.0 (2026-03-21)
-
-Initial release.
-
-## References
-
-Chen, Z., Wang, C., Sun, W., Liu, X., Zhang, J. M., & Liu, Y. (2025). Promptware engineering: Software engineering for LLM prompt development. arXiv:2503.02400.
-
-He, J., Rungta, M., Koleczek, D., Sekhon, A., Wang, F. X., & Hasan, S. (2024). Does prompt formatting have any impact on LLM performance? arXiv:2411.10541.
-
-Liu, Y.-Y., Zheng, Z., Zhang, F., et al. (2026). A comprehensive taxonomy of prompt engineering techniques for large language models. Frontiers of Computer Science, 20(3), 2003601.
-
-Wallace, E., Xiao, K., Leike, R., Weng, L., Heidecke, J., & Beutel, A. (2024). The instruction hierarchy: Training LLMs to prioritize privileged instructions. NeurIPS 2024.
-
-Yang, C., Shi, Y., Ma, Q., Liu, M. X., Kästner, C., & Wu, T. (2025). What prompts don't say: Understanding and managing underspecification in LLM prompts. arXiv:2505.13360.
-
-Zheng, Z., et al. (2026). Reasoning up the instruction ladder for controllable language models. arXiv:2511.04694.
