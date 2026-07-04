@@ -6,7 +6,7 @@
 |---|---|
 | **Author** | Enmanuel Damas Reyes |
 | **Version** | 3.0 |
-| **Date** | 2026-06-08 |
+| **Date** | 2026-07-04 |
 | **Status** | Draft |
 | **Platform** | claude.ai (Anthropic) |
 | **Supersedes** | v2.0 (2026-05-07) |
@@ -66,9 +66,9 @@ The linguistic form of instructions affects how the model interprets them. These
 
 **Atomicity.** Each sentence contains a single instruction. Compound instructions are decomposed into independent sentences.
 
-**Positive framing.** Instructions describe desired behavior rather than prohibited behavior. The form "Do Y instead of X" is preferred over "Do not do X." The negative form is reserved for exclusions that cannot be reformulated positively. This principle has empirical support: DIM-Bench (Hwang et al., 2025) demonstrates that LLMs are disproportionately vulnerable to negative and distractor requirements, complying with them less reliably than with equivalent positive requirements.
+**Positive framing.** Instructions describe desired behavior rather than prohibited behavior. The form "Do Y instead of X" is preferred over "Do not do X." The negative form is reserved for exclusions that cannot be reformulated positively. This principle has both first-party and empirical support. Anthropic's own model guidance states that positive examples of the desired behavior tend to be more effective than negative instructions that tell the model what not to do (Claude Platform migration guidance, 2026). Independently, DIM-Bench (Hwang et al., 2025) demonstrates that LLMs are disproportionately vulnerable to negative and distractor requirements, complying with them less reliably than with equivalent positive requirements.
 
-**Operational specificity.** Each instruction passes the unambiguous interpretation test: a reader without prior context would interpret it in exactly one way. Instructions tell the model what to do with information, not merely what information exists. A pointer that names a location without issuing an action ("the conventions are in file X") is not an instruction; the operative form is "load and apply file X before producing output."
+**Operational specificity.** Each instruction passes the unambiguous interpretation test: a reader without prior context would interpret it in exactly one way. Instructions tell the model what to do with information, not merely what information exists. A pointer that names a location without issuing an action ("the conventions are in file X") is not an instruction; the operative form is "load and apply file X before producing output." This matters more with recent models: Anthropic notes that Claude Opus 4.7 and later interpret instructions more literally and do not infer requests that were not made (Claude Platform migration guidance, 2026), so a file that is named but not commanded to load may simply not load.
 
 **Positional precedence.** Within a facet, the highest-priority instructions are placed first. Order effects are documented in the instruction-following literature: items presented earlier receive more attention (Zeng et al., 2025; Liu et al., 2025; Wen et al., 2024). Where an instantiation has been prioritized for load (see below), the surviving high-priority instructions are also positioned early, so that ordering reinforces rather than contradicts the prioritization.
 
